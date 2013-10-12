@@ -27,6 +27,12 @@ using namespace std;
 
 	bool Kunas::lyginti(Vektorius a, Vektorius b){
 		bool lygu=true;
+		/*
+		cout<<"lyginami vektoriai: ";
+		print_vector(a);
+		cout << " ir ";
+		print_vector(b);
+		cout <<endl;*/
 		if (a.size()==b.size()){
 			for (int i = 0; i < a.size(); i++) {
 				if (a[i]!=b[i]){
@@ -81,4 +87,12 @@ using namespace std;
 		for (int i = 0; i < Y; i++){
 			v[i].resize(X);
 		}
+	}
+
+	Vektorius Kunas::string_to_vector (std::string str, Vektorius& v){
+	v.resize( str.length() );
+		for (int i = 0; i < str.length(); i++){
+			v[i] = str[i];
+		}
+		return v;
 	}
