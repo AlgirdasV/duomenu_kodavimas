@@ -47,7 +47,7 @@ using namespace std;
 	        		if (factor==10)
 	                	binary1.push_back('0');
 	                
-	                multiply = binaryAddition(binary1,multiply);
+	                multiply = sudetis(binary1,multiply);
 	
 	        }
 	        else {
@@ -62,7 +62,7 @@ using namespace std;
 	    return multiply;
 	}
  
-	Vektorius Kunas::binaryAddition(Vektorius binary1, Vektorius binary2){
+	Vektorius Kunas::sudetis(Vektorius binary1, Vektorius binary2){
 		
 		Vektorius binarySum;
 

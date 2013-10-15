@@ -17,7 +17,7 @@ typedef std::vector<Elementas> Vektorius;
 		static bool lyginti(Vektorius , Vektorius );
 		static void resize_2d_vector (std::vector< std::vector<Vektorius> > &, int, int );
 		static Vektorius string_to_vector (std::string, Vektorius&);
-		static Vektorius binaryAddition(Vektorius binary1, Vektorius binary2);
+		static Vektorius sudetis(Vektorius binary1, Vektorius binary2);
 		static bool lygus_nuliui(Vektorius);
 	};
 

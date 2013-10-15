@@ -9,4 +9,5 @@
 	void get_strings_with_weight(std::vector<std::string>& , std::string , int, int, int);
 	void kurti_standart_masyva(Matrica, int, int);
 	void coset_leaders(std::vector< std::vector<Vektorius> >&, int, int, int&);
+	Vektorius dauginti_matrica_su_vektoriumi(Matrica, Vektorius);
 #endif

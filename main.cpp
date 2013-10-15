@@ -28,10 +28,14 @@ int main( int argc, const char* argv[] )
 			else incorrect=false;
 		}
 	}*/
-	Matrica m(5,3);
-	m.from_file("matrica.txt");
-	m.print();
-	tiesinis_kodavimas(m);
-	
+	//Matrica m(5,3);
+	//m.from_file("matrica.txt");
+	Matrica m2(4,3);
+	m2.from_file("matrica2.txt");
+	m2.print();
+	//tiesinis_kodavimas(m);
+	Vektorius pvz;
+	Kunas::string_to_vector("110",pvz);
+	Kunas::print_vector(dauginti_matrica_su_vektoriumi(m2, pvz));
 
 }

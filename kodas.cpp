@@ -8,6 +8,7 @@
 using namespace std;
 #include <string>
 using namespace std;
+#include <cassert>
 
 //vector<string> answer;
 //int min_svoris;
@@ -32,7 +33,7 @@ void tiesinis_kodavimas( Matrica& g ){//funkcija, atliekanti kodavima su generav
 	for (int i=0;i <answer.size();i++) {
 		for (int j=0; j < answer[0].size(); j++) {
 			if (answer[i][j]=='1'){//SUM IF answer[i][j] =1
-				sum=Kunas::binaryAddition(g(j),sum);
+				sum=Kunas::sudetis(g(j),sum);
 			}
 		}
 		code(i)=sum;
@@ -101,7 +102,7 @@ void kurti_standart_masyva(Matrica pirma_eil, int X, int Y) {//funkcija, kuri ku
 										//Reiksme koordinatese [i+1][j+1] = [i+1][0]+[0][j+1]	
 		coset_leaders(stdArray, simbol_kiek, eil+1, svoris);
 		for (int stulp = 0; stulp < X-1; stulp++){
-			stdArray[eil+1][stulp+1] = Kunas::binaryAddition( stdArray[eil+1][0],stdArray[0][stulp+1] );
+			stdArray[eil+1][stulp+1] = Kunas::sudetis( stdArray[eil+1][0],stdArray[0][stulp+1] );
 		}	
 	} 
 	
@@ -156,9 +157,17 @@ void coset_leaders(vector< vector<Vektorius> >& stdArray, int simboliu_kiekis,
 }
 
 Vektorius dauginti_matrica_su_vektoriumi(Matrica matrica, Vektorius vektorius) {
-	Vektorius rezult;
+	
+	assert(vektorius.size() == matrica.sizeY() );
+	Vektorius galut_rezult;
+	Vektorius daug_rezult;
 	for (int i = 0; i < vektorius.size(); i++){
-		//vektorius[i]
+		if (vektorius[i]=='1')
+			daug_rezult = matrica(i);
+		galut_rezult = Kunas::sudetis(galut_rezult, daug_rezult);
+		daug_rezult.clear();
 	}
+	
+	return galut_rezult;
 }
 
