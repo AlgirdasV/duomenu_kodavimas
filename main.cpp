@@ -32,6 +32,6 @@ int main( int argc, const char* argv[] )
 	m.from_file("matrica.txt");
 	m.print();
 	tiesinis_kodavimas(m);
-
+	
 
 }

@@ -6,24 +6,7 @@ using namespace std;
 #include <vector>
 using namespace std;
 
-	Vektorius Kunas::sudetis(Vektorius a, Vektorius b) {//sudeda vienodo ilgio vektorius
-		vector<Elementas> naujas;						//ir grazina rezultata kaip vektoriu.
-		vector<Elementas>::iterator it= naujas.begin();
-
-		if ( (a.size()==b.size()) && a.size()!=0) {
-			int limit =a.size();
-			for (int i=0; i<limit; i++){//atbuline eiga
-				Elementas rez = addElements( a.back(), b.back() );
-    			it = naujas.insert ( it , rez );
-    			b.pop_back();
-    			a.pop_back();
-    			it = naujas.begin();
-    		}	
-			return naujas;
-		} 
-		else cout << "Klaida sudeties veiksme\n";
 	
-	}
 
 	bool Kunas::lyginti(Vektorius a, Vektorius b){
 		bool lygu=true;
@@ -51,8 +34,83 @@ using namespace std;
 		return lygu;
 	}
 
-	Vektorius Kunas::daugyba(Vektorius a, Vektorius b) {
-	    //return a & b;
+	Vektorius Kunas::daugyba(Vektorius binary1, Vektorius binary2) {
+		Vektorius multiply;
+		char digit;
+		int factor=1;
+
+	    while( !binary2.empty() ) {
+	    	
+        	digit =  binary2.back();
+        	
+	        if(digit =='1'){
+	        		if (factor==10)
+	                	binary1.push_back('0');
+	                
+	                multiply = binaryAddition(binary1,multiply);
+	
+	        }
+	        else {
+	        	if (factor==10)
+	                binary1.push_back('0');
+	        }
+	        binary2.pop_back();
+	        factor = 10;
+	        
+	    }
+	    
+	    return multiply;
+	}
+ 
+	Vektorius Kunas::binaryAddition(Vektorius binary1, Vektorius binary2){
+		
+		Vektorius binarySum;
+
+	    int i=0,remainder = 0,sum[20];
+		
+	    while( ( !binary1.empty() ) || ( !binary2.empty() )){
+	    	Elementas last_digit1;
+	    	Elementas last_digit2;
+	    	if (!binary1.empty())
+	    		last_digit1=binary1.back();
+	    	else 
+	    		last_digit1='0';
+	    	
+	    	if ( !binary2.empty() ) {
+	    		last_digit2=binary2.back();
+	    	}
+	    	else 
+	    		last_digit2='0';
+	    	
+	    	Elementas tmp = addElements( last_digit1, last_digit2 );
+	    	int tmp2 = remainder + (tmp-'0');
+
+	        sum[i++] =  tmp2 % 2;
+	        remainder = tmp2 / 2;
+	       	if (!binary1.empty())
+	        	binary1.pop_back();
+	        if (!binary2.empty())
+	        	binary2.pop_back();
+	    }
+
+	    if(remainder!=0)
+	         sum[i++] = remainder;
+	    --i;
+	    while(i>=0){
+	    	Elementas tmp3 = '0'+sum[i--];
+	        binarySum.push_back(tmp3);
+	    }
+
+	    return binarySum;
+	    
+	}
+
+	bool Kunas::lygus_nuliui(Vektorius v){
+		bool lygus = true;
+		for (int i = 0; i < v.size(); i++){
+			if (v[i]=='1') lygus = false;
+		}
+		return lygus;
 	}
 
 	Elementas Kunas::addElements(Elementas a,Elementas b){
