@@ -1,4 +1,4 @@
-OBJS = main.o kunas.o kodas.o matrica.o
+OBJS = main.o kunas.o kodas.o matrica.o kanalas.o
 CC = g++
 
 kodavimas: $(OBJS)
@@ -11,5 +11,7 @@ kodas.o: kodas.cpp kodas.h
 	$(CC) -g -c kodas.cpp
 matrica.o: matrica.cpp matrica.h kunas.h
 	$(CC) -g -c matrica.cpp
+kanalas.o: kanalas.h kanalas.cpp
+	$(CC) -g -c kanalas.cpp
 clean:
 	\rm *.o *~ kodavimas

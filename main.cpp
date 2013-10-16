@@ -6,6 +6,7 @@ using namespace std;
 #include "kunas.h"
 #include "kodas.h"
 #include "matrica.h"
+#include "kanalas.h"
 
 int main( int argc, const char* argv[] )
 {
@@ -36,6 +37,7 @@ int main( int argc, const char* argv[] )
 	//tiesinis_kodavimas(m);
 	Vektorius pvz;
 	Kunas::string_to_vector("110",pvz);
-	Kunas::print_vector(dauginti_matrica_su_vektoriumi(m2, pvz));
+	Vektorius rezultatas = dauginti_matrica_su_vektoriumi(m2, pvz);
+	Kunas::print_vector(siuntimas_kanalu(rezultatas));
 
 }
