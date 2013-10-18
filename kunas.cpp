@@ -5,6 +5,7 @@ using namespace std;
 using namespace std;
 #include <vector>
 using namespace std;
+#include <cassert>
 
 	
 
@@ -114,6 +115,7 @@ using namespace std;
 	}
 
 	Elementas Kunas::addElements(Elementas a,Elementas b){
+		assert( (a=='0' || a=='1') && (b=='0' || b=='1') );
 		if (a=='0' && b=='0'){
 			return '0';
 		}
@@ -124,6 +126,20 @@ using namespace std;
 			return '1';
 		}
 		else return '0';
+	}
+
+	Elementas Kunas::multiplyElements(Elementas a,Elementas b){
+		assert( (a=='0' || a=='1') && (b=='0' || b=='1') );
+		if (a=='0' && b=='0'){
+			return '0';
+		}
+		else if (a=='1' && b=='0'){
+			return '0';
+		}
+		else if (a=='0' && b=='1'){
+			return '0';
+		}
+		else return '1';
 	}
 
 	void Kunas::print_vector( Vektorius v){

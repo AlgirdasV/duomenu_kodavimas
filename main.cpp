@@ -7,6 +7,7 @@ using namespace std;
 #include "kodas.h"
 #include "matrica.h"
 #include "kanalas.h"
+#include "dekodavimas.h"
 
 int main( int argc, const char* argv[] )
 {
@@ -34,6 +35,7 @@ int main( int argc, const char* argv[] )
 	Matrica m2(4,3);
 	m2.from_file("matrica2.txt");
 	m2.print();
+
 	//tiesinis_kodavimas(m);
 	Vektorius pvz;
 	Kunas::string_to_vector("110",pvz);

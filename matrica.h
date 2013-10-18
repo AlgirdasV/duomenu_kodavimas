@@ -19,6 +19,9 @@ class Matrica {
 		void print();
 		char& operator()(const int , const int );
 		std::vector<char>& operator()(const int );
+		void dauginti_eilute(int, Elementas);
+		void dauginti_eilute_ir_prideti(int, Elementas, int);
+		void sukeisti_eilutes(int, int);
 
 
 };

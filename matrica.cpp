@@ -75,3 +75,35 @@ void Matrica::print(){
 	}
 	cout << endl;
 }
+
+void Matrica::dauginti_eilute(int eil, Elementas daugiklis){
+	assert(eil >= 0 && eil < this->y );
+	for (int stulp = 0; stulp < this->x; stulp++){
+		this->reiksme[eil][stulp] = Kunas::multiplyElements(this->reiksme[eil][stulp], daugiklis);
+	}
+	
+}
+
+void Matrica::dauginti_eilute_ir_prideti(int eil1, Elementas daugiklis, int eil2){
+	assert(eil1 >= 0 && eil1 < this->y );
+	assert(eil2 >= 0 && eil2 < this->y );
+	Vektorius pagalb;
+	pagalb.resize(this->x);
+	for (int stulp = 0; stulp < this->x; stulp++){
+		pagalb[stulp] = Kunas::multiplyElements( this->reiksme[eil1][stulp], daugiklis );
+		this->reiksme[eil2][stulp] = Kunas::addElements( pagalb[stulp], this->reiksme[eil2][stulp] );
+	}
+	
+}
+
+void Matrica::sukeisti_eilutes(int eil1, int eil2){
+	assert(eil1 >= 0 && eil1 < this->y );
+	assert(eil2 >= 0 && eil2 < this->y );
+	Vektorius pagalb;
+	pagalb.resize(this->x);
+	for (int stulp = 0; stulp < this->x; stulp++){
+		pagalb[stulp] = this->reiksme[eil1][stulp];
+		this->reiksme[eil1][stulp] = this->reiksme[eil2][stulp];
+		this->reiksme[eil2][stulp] = pagalb[stulp];
+	}
+}

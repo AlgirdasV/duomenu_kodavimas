@@ -12,7 +12,7 @@ Vektorius siuntimas_kanalu(Vektorius v){
 		float a = (float)rand()/(float)RAND_MAX;//generuoja atsitiktini skaiciu nuo 0 iki 1
 		cout << a << endl;
 		if (a < tikimybe){//simboli reikia iskraipyti
-			cout << "reikia kraipyti";
+			cout << "reikia kraipyti\n";
 			rez.push_back(Kunas::addElements(v[i], '1'));
 			klaidu_sk++;
 		}
