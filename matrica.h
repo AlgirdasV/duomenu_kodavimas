@@ -20,8 +20,9 @@ class Matrica {
 		char& operator()(const int , const int );
 		std::vector<char>& operator()(const int );
 		void dauginti_eilute(int, Elementas);
-		void dauginti_eilute_ir_prideti(int, Elementas, int);
+		void dauginti_eilute_ir_atimti(int, Elementas, int);
 		void sukeisti_eilutes(int, int);
+		void i_rref();
 
 
 };

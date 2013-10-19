@@ -83,7 +83,7 @@ using namespace std;
 	    	else 
 	    		last_digit2='0';
 	    	
-	    	Elementas tmp = addElements( last_digit1, last_digit2 );
+	    	Elementas tmp = el_sudetis( last_digit1, last_digit2 );
 	    	int tmp2 = remainder + (tmp-'0');
 
 	        sum[i++] =  tmp2 % 2;
@@ -106,6 +106,20 @@ using namespace std;
 	    
 	}
 
+	Elementas Kunas::el_atimtis(Elementas a, Elementas b){
+		assert( (a=='0' || a=='1') && (b=='0' || b=='1') );
+		if (a=='0' && b=='0'){
+			return '0';
+		}
+		else if (a=='1' && b=='0'){
+			return '0';
+		}
+		else if (a=='0' && b=='1'){
+			return '1';
+		}
+		else return '0';
+	}
+
 	bool Kunas::lygus_nuliui(Vektorius v){
 		bool lygus = true;
 		for (int i = 0; i < v.size(); i++){
@@ -114,7 +128,7 @@ using namespace std;
 		return lygus;
 	}
 
-	Elementas Kunas::addElements(Elementas a,Elementas b){
+	Elementas Kunas::el_sudetis(Elementas a,Elementas b){
 		assert( (a=='0' || a=='1') && (b=='0' || b=='1') );
 		if (a=='0' && b=='0'){
 			return '0';
@@ -128,7 +142,7 @@ using namespace std;
 		else return '0';
 	}
 
-	Elementas Kunas::multiplyElements(Elementas a,Elementas b){
+	Elementas Kunas::el_daugyba(Elementas a,Elementas b){
 		assert( (a=='0' || a=='1') && (b=='0' || b=='1') );
 		if (a=='0' && b=='0'){
 			return '0';

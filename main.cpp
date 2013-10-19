@@ -32,14 +32,16 @@ int main( int argc, const char* argv[] )
 	}*/
 	//Matrica m(5,3);
 	//m.from_file("matrica.txt");
-	Matrica m2(4,3);
-	m2.from_file("matrica2.txt");
-	m2.print();
+	Matrica m(5,3);
+	m.from_file("matrica.txt");
+	m.print();
+	m.i_rref();
+	m.print();
 
 	//tiesinis_kodavimas(m);
 	Vektorius pvz;
-	Kunas::string_to_vector("110",pvz);
-	Vektorius rezultatas = dauginti_matrica_su_vektoriumi(m2, pvz);
-	Kunas::print_vector(siuntimas_kanalu(rezultatas));
+	//Kunas::string_to_vector("110",pvz);
+	//Vektorius rezultatas = dauginti_matrica_su_vektoriumi(m2, pvz);
+	//Kunas::print_vector(siuntimas_kanalu(rezultatas));
 
 }

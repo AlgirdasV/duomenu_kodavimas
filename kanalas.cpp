@@ -13,7 +13,7 @@ Vektorius siuntimas_kanalu(Vektorius v){
 		cout << a << endl;
 		if (a < tikimybe){//simboli reikia iskraipyti
 			cout << "reikia kraipyti\n";
-			rez.push_back(Kunas::addElements(v[i], '1'));
+			rez.push_back(Kunas::el_sudetis(v[i], '1'));
 			klaidu_sk++;
 		}
 		else rez.push_back(v[i]);

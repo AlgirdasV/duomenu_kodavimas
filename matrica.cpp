@@ -77,26 +77,29 @@ void Matrica::print(){
 }
 
 void Matrica::dauginti_eilute(int eil, Elementas daugiklis){
+	cout<< "eilute ["<< eil<<"] dauginama is "<<daugiklis<<endl;
 	assert(eil >= 0 && eil < this->y );
 	for (int stulp = 0; stulp < this->x; stulp++){
-		this->reiksme[eil][stulp] = Kunas::multiplyElements(this->reiksme[eil][stulp], daugiklis);
+		this->reiksme[eil][stulp] = Kunas::el_daugyba(this->reiksme[eil][stulp], daugiklis);
 	}
 	
 }
 
-void Matrica::dauginti_eilute_ir_prideti(int eil1, Elementas daugiklis, int eil2){
+void Matrica::dauginti_eilute_ir_atimti(int eil1, Elementas daugiklis, int eil2){
+	cout<< "eilute ["<< eil1<<"] dauginama is "<<daugiklis<<" ir atimama is eilutes ["<<eil2<<"]\n";
 	assert(eil1 >= 0 && eil1 < this->y );
 	assert(eil2 >= 0 && eil2 < this->y );
 	Vektorius pagalb;
 	pagalb.resize(this->x);
 	for (int stulp = 0; stulp < this->x; stulp++){
-		pagalb[stulp] = Kunas::multiplyElements( this->reiksme[eil1][stulp], daugiklis );
-		this->reiksme[eil2][stulp] = Kunas::addElements( pagalb[stulp], this->reiksme[eil2][stulp] );
+		pagalb[stulp] = Kunas::el_daugyba( this->reiksme[eil1][stulp], daugiklis );
+		this->reiksme[eil2][stulp] = Kunas::el_atimtis( pagalb[stulp], this->reiksme[eil2][stulp] );
 	}
 	
 }
 
 void Matrica::sukeisti_eilutes(int eil1, int eil2){
+	cout<< "sukeiciamos eilutes: "<< eil1<<" ir "<<eil2<<endl;
 	assert(eil1 >= 0 && eil1 < this->y );
 	assert(eil2 >= 0 && eil2 < this->y );
 	Vektorius pagalb;
@@ -106,4 +109,35 @@ void Matrica::sukeisti_eilutes(int eil1, int eil2){
 		this->reiksme[eil1][stulp] = this->reiksme[eil2][stulp];
 		this->reiksme[eil2][stulp] = pagalb[stulp];
 	}
+}
+
+void Matrica::i_rref() {
+	 
+	int lead = 0;
+ 
+  	for (int row = 0; row < this->y; ++row){
+	    if (lead >= this->x)
+	    	return;
+	    int i = row;
+	    cout<<"i = "<<i<<" lead = "<<lead<<endl;
+	    while (this->reiksme[i][lead] == '0')
+	    {
+		    i++;
+		    if (i >= this->y){
+			    i = row;
+			    lead++;
+			    if (lead >= this->x)
+			    	return;
+		    }
+		    cout<<"i = "<<i<<" lead = "<<lead<<endl;
+	    }
+	    this->sukeisti_eilutes(i, row);
+	    if (this->reiksme[row][lead]!='0')
+	    	this->dauginti_eilute(row, this->reiksme[row][lead]);
+	    for (int j = 0; j < this->y; j++)
+	    {
+	    	if (j != row)
+	    		this->dauginti_eilute_ir_atimti( row, this->reiksme[j][lead], j );
+	    }
+  	}
 }

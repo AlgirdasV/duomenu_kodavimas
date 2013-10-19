@@ -12,8 +12,9 @@ typedef std::vector<Elementas> Vektorius;
 		
 		static Vektorius daugyba(Vektorius, Vektorius);
 		static void print_vector(Vektorius);
-		static Elementas addElements(Elementas, Elementas);
-		static Elementas multiplyElements(Elementas, Elementas);
+		static Elementas el_sudetis(Elementas, Elementas);
+		static Elementas el_atimtis(Elementas, Elementas);
+		static Elementas el_daugyba(Elementas, Elementas);
 		static void reset_vector( Vektorius& , int);
 		static bool lyginti(Vektorius , Vektorius );
 		static void resize_2d_vector (std::vector< std::vector<Vektorius> > &, int, int );
