@@ -22,7 +22,9 @@ class Matrica {
 		void dauginti_eilute(int, Elementas);
 		void dauginti_eilute_ir_atimti(int, Elementas, int);
 		void sukeisti_eilutes(int, int);
+		void sukeisti_stulpelius(int, int);
 		void i_rref();
+		std::vector<std::vector<int> > i_vienetine();
 
 
 };

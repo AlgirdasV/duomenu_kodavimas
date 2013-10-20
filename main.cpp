@@ -11,7 +11,7 @@ using namespace std;
 
 int main( int argc, const char* argv[] )
 {
-	//cout << Kunas::daugyba(1, 0);
+
 	int n = 4;
 	string input;
 	bool incorrect=false;
@@ -30,13 +30,11 @@ int main( int argc, const char* argv[] )
 			else incorrect=false;
 		}
 	}*/
-	//Matrica m(5,3);
-	//m.from_file("matrica.txt");
-	Matrica m(5,3);
-	m.from_file("matrica.txt");
+	
+	Matrica m(6,3);
+	m.from_file("matrica3.txt");
 	m.print();
-	m.i_rref();
-	m.print();
+	kontroline_matrica(m);
 
 	//tiesinis_kodavimas(m);
 	Vektorius pvz;

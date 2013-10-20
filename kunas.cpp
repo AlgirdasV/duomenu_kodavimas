@@ -106,13 +106,13 @@ using namespace std;
 	    
 	}
 
-	Elementas Kunas::el_atimtis(Elementas a, Elementas b){
+	Elementas Kunas::el_atimtis(Elementas a, Elementas b){//is elemento a atimamas elementas b
 		assert( (a=='0' || a=='1') && (b=='0' || b=='1') );
 		if (a=='0' && b=='0'){
 			return '0';
 		}
 		else if (a=='1' && b=='0'){
-			return '0';
+			return '1';
 		}
 		else if (a=='0' && b=='1'){
 			return '1';
@@ -156,6 +156,7 @@ using namespace std;
 		else return '1';
 	}
 
+	
 	void Kunas::print_vector( Vektorius v){
 		for (int i=0; i < v.size(); i++){
 			cout << v[i];

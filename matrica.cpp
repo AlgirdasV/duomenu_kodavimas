@@ -1,9 +1,11 @@
 #include "matrica.h"
 #include <iostream>
-using namespace std;
+	using namespace std;
 #include <cassert>
 #include <string>         // std::string
-using namespace std;
+	using namespace std;
+#include <vector>
+	using namespace std;
 #include <fstream>
 #include <cstring>
 
@@ -111,11 +113,24 @@ void Matrica::sukeisti_eilutes(int eil1, int eil2){
 	}
 }
 
+void Matrica::sukeisti_stulpelius(int stulp1, int stulp2){
+	cout<< "sukeiciami stulpeliai: "<< stulp1<<" ir "<<stulp2<<endl;
+	assert(stulp1 >= 0 && stulp1 < this->x );
+	assert(stulp2 >= 0 && stulp2 < this->x );
+	Elementas pagalb;
+
+	for (int eil = 0; eil < this->y; eil++){
+		pagalb = this->reiksme[eil][stulp1];
+		this->reiksme[eil][stulp1] = this->reiksme[eil][stulp2];
+		this->reiksme[eil][stulp2] = pagalb;
+	}
+}
+
 void Matrica::i_rref() {
 	 
 	int lead = 0;
  
-  	for (int row = 0; row < this->y; ++row){
+  	for (int row = 0; row < this->y; row++){
 	    if (lead >= this->x)
 	    	return;
 	    int i = row;
@@ -140,4 +155,40 @@ void Matrica::i_rref() {
 	    		this->dauginti_eilute_ir_atimti( row, this->reiksme[j][lead], j );
 	    }
   	}
+}
+
+vector<vector<int> > Matrica::i_vienetine() {//grazina perstatymo vektoriu
+	int a, b;
+	vector<vector<int> > perstatymas;
+	int stulp_sk = this->x;
+	perstatymas.resize(2);
+	perstatymas[0].resize(this->x);
+	perstatymas[1].resize(this->x);
+	
+	for (int stulp = 0; stulp < this->x; stulp++){
+		perstatymas[0][stulp]=stulp;
+		perstatymas[1][stulp]=stulp;
+	}
+	for (int eil = 0; eil < this->y; eil++){
+		for (int stulp = 0; stulp < this->y; stulp++){
+			if ( eil==stulp ){
+				if ( this->reiksme[eil][stulp] != '1' ){
+					a = stulp;
+					int stulp2 = a+1;
+					while(this->reiksme[eil][stulp2] != '1'){	
+						stulp2++;
+					}
+					b = stulp2;
+					this->sukeisti_stulpelius(a, b);
+					//Perstatymo vektoriuje taipogi sukeiciame stulpelius:
+					int pagalb;
+					pagalb = perstatymas[1][a];
+					perstatymas[1][a] = perstatymas[1][b];
+					perstatymas[1][b] = pagalb;
+					//
+				}
+			}
+		}
+	}
+	return perstatymas;
 }
