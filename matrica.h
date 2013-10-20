@@ -17,6 +17,7 @@ class Matrica {
 		int sizeY();
 		void from_file(const std::string&);
 		void print();
+		void keisti_dydi(const int,const int);
 		char& operator()(const int , const int );
 		std::vector<char>& operator()(const int );
 		void dauginti_eilute(int, Elementas);

@@ -16,10 +16,22 @@ Matrica::Matrica(int sizeX, int sizeY): x(sizeX), y(sizeY) {
 	}
 }
 
+Matrica::Matrica(): x(0), y(0)  {
+}
+
 Matrica::~Matrica() {
 }
 
-char& Matrica::operator()(const int nCol, const int nRow)	//leidzia prieti prie matricos reiksmes
+void Matrica::keisti_dydi(const int sizeX,const int sizeY){
+	this->x = sizeX;
+	this->y = sizeY;
+	this->reiksme.resize(sizeY);
+	for (int i = 0; i < sizeY; i++) {
+		this->reiksme[i].resize(sizeX);
+	}
+}
+
+char& Matrica::operator()(const int nRow, const int nCol)	//leidzia prieti prie matricos reiksmes
 {															//nurodytame stulpelyje ir eiluteje
     assert(nCol >= 0 && nCol < this->sizeX() );
     assert(nRow >= 0 && nRow < this->sizeY() );
