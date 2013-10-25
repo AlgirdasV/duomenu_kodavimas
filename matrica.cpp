@@ -60,12 +60,13 @@ void Matrica::from_file(const string& file){
 		string line;
 		int col=0, row=0;
     	while ( getline (myfile,line) ) {
+    		this->reiksme.resize(row+1);//didiname matricos eiluciu kieki
     		for (int i=0; i<line.length(); i++) {
     			if (line[i]!=' ') {
     				if ( line[i] == '1' )//yra simbolis 1
-    					this->reiksme[row][col]='1';
+    					this->reiksme[row].push_back('1');
     				else if ( line[i] == '0' )//yra simbolis 0
-    					this->reiksme[row][col]='0';
+    					this->reiksme[row].push_back('0');
     				else cout<< "klaidingas simbolis faile" << file<< endl;
     				col++;
     			}
@@ -75,6 +76,8 @@ void Matrica::from_file(const string& file){
 			col=0;
 		}
 		myfile.close();
+		this->x = this->reiksme[0].size();//pazymime laukus
+		this->y = row;					//, kurie rodo matricos eiluciu ir stulpeliu sk.
 	}
 	else cout << "Unable to open file";
 }
@@ -91,7 +94,7 @@ void Matrica::print(){
 }
 
 void Matrica::dauginti_eilute(int eil, Elementas daugiklis){
-	cout<< "eilute ["<< eil<<"] dauginama is "<<daugiklis<<endl;
+	//cout<< "eilute ["<< eil<<"] dauginama is "<<daugiklis<<endl;
 	assert(eil >= 0 && eil < this->y );
 	for (int stulp = 0; stulp < this->x; stulp++){
 		this->reiksme[eil][stulp] = Kunas::el_daugyba(this->reiksme[eil][stulp], daugiklis);
@@ -100,7 +103,7 @@ void Matrica::dauginti_eilute(int eil, Elementas daugiklis){
 }
 
 void Matrica::dauginti_eilute_ir_atimti(int eil1, Elementas daugiklis, int eil2){
-	cout<< "eilute ["<< eil1<<"] dauginama is "<<daugiklis<<" ir atimama is eilutes ["<<eil2<<"]\n";
+	//cout<< "eilute ["<< eil1<<"] dauginama is "<<daugiklis<<" ir atimama is eilutes ["<<eil2<<"]\n";
 	assert(eil1 >= 0 && eil1 < this->y );
 	assert(eil2 >= 0 && eil2 < this->y );
 	Vektorius pagalb;
@@ -113,7 +116,7 @@ void Matrica::dauginti_eilute_ir_atimti(int eil1, Elementas daugiklis, int eil2)
 }
 
 void Matrica::sukeisti_eilutes(int eil1, int eil2){
-	cout<< "sukeiciamos eilutes: "<< eil1<<" ir "<<eil2<<endl;
+	//cout<< "sukeiciamos eilutes: "<< eil1<<" ir "<<eil2<<endl;
 	assert(eil1 >= 0 && eil1 < this->y );
 	assert(eil2 >= 0 && eil2 < this->y );
 	Vektorius pagalb;
@@ -126,7 +129,7 @@ void Matrica::sukeisti_eilutes(int eil1, int eil2){
 }
 
 void Matrica::sukeisti_stulpelius(int stulp1, int stulp2){
-	cout<< "sukeiciami stulpeliai: "<< stulp1<<" ir "<<stulp2<<endl;
+	//cout<< "sukeiciami stulpeliai: "<< stulp1<<" ir "<<stulp2<<endl;
 	assert(stulp1 >= 0 && stulp1 < this->x );
 	assert(stulp2 >= 0 && stulp2 < this->x );
 	Elementas pagalb;
@@ -146,7 +149,7 @@ void Matrica::i_rref() {
 	    if (lead >= this->x)
 	    	return;
 	    int i = row;
-	    cout<<"i = "<<i<<" lead = "<<lead<<endl;
+	    //cout<<"i = "<<i<<" lead = "<<lead<<endl;
 	    while (this->reiksme[i][lead] == '0')
 	    {
 		    i++;
@@ -156,7 +159,7 @@ void Matrica::i_rref() {
 			    if (lead >= this->x)
 			    	return;
 		    }
-		    cout<<"i = "<<i<<" lead = "<<lead<<endl;
+		    //cout<<"i = "<<i<<" lead = "<<lead<<endl;
 	    }
 	    this->sukeisti_eilutes(i, row);
 	    if (this->reiksme[row][lead]!='0')

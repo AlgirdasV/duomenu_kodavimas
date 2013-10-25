@@ -13,7 +13,7 @@ using namespace std;
 //vector<string> answer;
 //int min_svoris;
 
-void tiesinis_kodavimas( Matrica& g ){//funkcija, atliekanti kodavima su generavimo matrica
+void tiesinis_kodavimas( Matrica& g, vector< vector<Vektorius> >& stdArray ){//funkcija, atliekanti kodavima su generavimo matrica
 	int n=g.sizeX();
 	int k=g.sizeY();
 
@@ -25,7 +25,7 @@ void tiesinis_kodavimas( Matrica& g ){//funkcija, atliekanti kodavima su generav
 	answer[ first_el ] = answer [last_el];
 	answer [last_el] = temp;// sukeiciamia pirma ir paskutini sumavimo variantus,
 							// kad jie prasidetu nuo 0.
-	Matrica code(5,8); 
+	Matrica code(n, pow(2, k)); 
 	vector <Elementas> sum;
 
 	Kunas::reset_vector(sum, n);//pirmas codeword visada susideda is n nuliu.
@@ -39,11 +39,11 @@ void tiesinis_kodavimas( Matrica& g ){//funkcija, atliekanti kodavima su generav
 		code(i)=sum;
 		Kunas::reset_vector(sum, n);
 	}
-	cout<<"";
-	code.Matrica::print();
+	//cout<<"Kodas: \n";
+	//code.Matrica::print();
 	int qnk = pow(2, n-k);
 	int qk = pow(2, k);
-	kurti_standart_masyva(code, qk, qnk);
+	stdArray = kurti_standart_masyva(code, qk, qnk);
 }
 
 
@@ -87,7 +87,7 @@ void get_strings_with_weight(vector<string>& answer, string s, int digitsLeft, i
    	}
 }
 
-void kurti_standart_masyva(Matrica pirma_eil, int X, int Y) {//funkcija, kuri kuria standartini masyva is kodazodziu
+vector< vector<Vektorius> > kurti_standart_masyva(Matrica pirma_eil, int X, int Y) {//funkcija, kuri kuria standartini masyva is kodazodziu
 	//vector<vector<Vektorius>>Vektorius stdArray [Y][X];
 	vector< vector<Vektorius> > stdArray;
 	Kunas::resize_2d_vector(stdArray,X,Y);//nustatome std. masyvo dydi
@@ -114,6 +114,7 @@ void kurti_standart_masyva(Matrica pirma_eil, int X, int Y) {//funkcija, kuri ku
 		}
 		cout <<"\n";
 	}
+	return stdArray;
 }
 
 void coset_leaders(vector< vector<Vektorius> >& stdArray, int simboliu_kiekis,
@@ -129,7 +130,7 @@ void coset_leaders(vector< vector<Vektorius> >& stdArray, int simboliu_kiekis,
 		get_strings_with_weight(potential_leaders, "", simboliu_kiekis, svoris, simboliu_kiekis);
 		int nr_of_potential = potential_leaders.size();
 		for (int z = 0; (z < nr_of_potential)&&(!baigta); z++){
-			Vektorius potential; Kunas::string_to_vector(potential_leaders[z], potential); //konvertuojame is string i vektoriu
+			Vektorius potential = Kunas::string_to_vector(potential_leaders[z]); //konvertuojame is string i vektoriu
 			laisvas = true;
 
 			for (int i = 0; i<eil; i++){

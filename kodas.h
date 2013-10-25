@@ -4,10 +4,10 @@
 #include <string>
 #include <vector>
 	//typedef std::valarray<double> Matrix;
-	void tiesinis_kodavimas( Matrica& );
+	void tiesinis_kodavimas( Matrica&, std::vector< std::vector<Vektorius> >& );
 	void get_strings(std::vector<std::string>& , std::string , int );
 	void get_strings_with_weight(std::vector<std::string>& , std::string , int, int, int);
-	void kurti_standart_masyva(Matrica, int, int);
+	std::vector< std::vector<Vektorius> > kurti_standart_masyva(Matrica, int, int);
 	void coset_leaders(std::vector< std::vector<Vektorius> >&, int, int, int&);
 	Vektorius dauginti_matrica_su_vektoriumi(Matrica, Vektorius);
 #endif

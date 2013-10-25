@@ -178,7 +178,8 @@ using namespace std;
 		}
 	}
 
-	Vektorius Kunas::string_to_vector (std::string str, Vektorius& v){
+	Vektorius Kunas::string_to_vector (std::string str){
+	Vektorius v;
 	v.resize( str.length() );
 		for (int i = 0; i < str.length(); i++){
 			v[i] = str[i];

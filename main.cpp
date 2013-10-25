@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <iostream>
-using namespace std;
+	using namespace std;
 #include <string>         // std::string
-using namespace std;
+	using namespace std;
+#include <vector>         
+	using namespace std;
 #include "kunas.h"
 #include "kodas.h"
 #include "matrica.h"
@@ -31,15 +33,16 @@ int main( int argc, const char* argv[] )
 		}
 	}*/
 	
-	Matrica m(6,3);
+	Matrica m;
 	m.from_file("matrica3.txt");
 	m.print();
-	kontroline_matrica(m);
-
-	//tiesinis_kodavimas(m);
-	Vektorius pvz;
+	vector< vector<Vektorius> > stdArray;
+	tiesinis_kodavimas(m, stdArray);
+	Matrica h = kontroline_matrica(m);
+	skaiciuoti_sindromus(h, stdArray);
+	
+	//Vektorius pvz;
 	//Kunas::string_to_vector("110",pvz);
 	//Vektorius rezultatas = dauginti_matrica_su_vektoriumi(m2, pvz);
 	//Kunas::print_vector(siuntimas_kanalu(rezultatas));
-
 }
