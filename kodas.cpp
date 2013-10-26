@@ -118,7 +118,7 @@ vector< vector<Vektorius> > kurti_standart_masyva(Matrica pirma_eil, int X, int 
 }
 
 void coset_leaders(vector< vector<Vektorius> >& stdArray, int simboliu_kiekis,
-						 int eil, int& svoris ){//sukuria coset lyderius std. masyve.
+						 int eil, int& svoris ){//sukuria coset lyderi std. masyvo nurodytoje eiluteje
 	int X = stdArray[0].size();//kiekis stulpeliu
 	int Y = stdArray.size();//kiekis eiluciu
 	Vektorius cos_lead;

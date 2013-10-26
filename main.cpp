@@ -34,13 +34,12 @@ int main( int argc, const char* argv[] )
 	}*/
 	
 	Matrica m;
-	m.from_file("matrica3.txt");
+	m.from_file("matrica2.txt");
 	m.print();
 	vector< vector<Vektorius> > stdArray;
 	tiesinis_kodavimas(m, stdArray);
 	Matrica h = kontroline_matrica(m);
 	skaiciuoti_sindromus(h, stdArray);
-	
 	//Vektorius pvz;
 	//Kunas::string_to_vector("110",pvz);
 	//Vektorius rezultatas = dauginti_matrica_su_vektoriumi(m2, pvz);

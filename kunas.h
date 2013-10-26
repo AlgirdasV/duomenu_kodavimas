@@ -21,6 +21,7 @@ typedef std::vector<Elementas> Vektorius;
 		static Vektorius string_to_vector (std::string);
 		static Vektorius sudetis(Vektorius binary1, Vektorius binary2);
 		static bool lygus_nuliui(Vektorius);
+		static int rasti_svori(Vektorius);
 	};
 
 	

@@ -62,6 +62,15 @@ using namespace std;
 	    
 	    return multiply;
 	}
+
+	int Kunas::rasti_svori(Vektorius v){
+		int svoris = 0;
+		for (int i = 0; i < v.size(); i++ ) {
+			if (v[i] == '1')
+				svoris++;
+		}
+		return svoris;
+	}
  
 	Vektorius Kunas::sudetis(Vektorius binary1, Vektorius binary2){
 		
