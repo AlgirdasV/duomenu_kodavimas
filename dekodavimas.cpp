@@ -7,6 +7,41 @@
 
 
 
+Standart_lentele::Standart_lentele(int klasiu_kiekis): klasiu_kiekis(klasiu_kiekis){
+	sindromai.resize(klasiu_kiekis);
+	vektoriu_svoriai.resize(klasiu_kiekis);
+}
+
+void  Standart_lentele::isvalyti_sindroma(int indeksas){
+	sindromai[indeksas].clear();
+}
+
+void Standart_lentele::prijungti_prie_sindromo(int indeksas, Elementas elementas){
+	sindromai[indeksas].push_back(elementas);
+}
+
+void Standart_lentele::priskirti_svori(int indeksas, int svoris){
+	vektoriu_svoriai[indeksas] = svoris;
+}
+
+void Standart_lentele::spausdinti(){
+	cout << "sumazinta standartine lentele:\n";
+	for (int j = 0; j < klasiu_kiekis; j++){
+		Kunas::print_vector(sindromai[j]);
+		cout << " "<<vektoriu_svoriai[j];
+		cout << endl;
+	}
+}
+
+bool Standart_lentele::lyginti_sindromus_iki_indekso(int indeksas){
+	bool yra_lygiu = false;
+	for (int x = 0; x < indeksas; x++){
+		if ( Kunas::lyginti(sindromai[x], sindromai[indeksas]) )
+			yra_lygiu = true;
+	}
+	return yra_lygiu;
+}
+
 Matrica kontroline_matrica(Matrica G){
 	G.i_rref();
 	//G.print();
@@ -41,16 +76,12 @@ Matrica kontroline_matrica(Matrica G){
 	return H;
 }
 void skaiciuoti_sindromus(Matrica H, int klasiu_sk){
-	vector < vector <Elementas> > sindromai;
-	vector <int> vektoriu_svoriai;
-	cout << "sindromu lentele: " << endl;
-	sindromai.resize(klasiu_sk);
-	vektoriu_svoriai.resize(klasiu_sk);
+	Standart_lentele standart_lentele(klasiu_sk);
 	bool jau_uzimtas = false;	
 	int skait_kiek = H.sizeX();
 	int svoris = 0;
 	int i = 0;
-	cout << "klasiu_sk" << klasiu_sk <<endl;
+
 	while( i < klasiu_sk ){
 	
 		vector<string> galimi_vektoriai;	
@@ -60,48 +91,22 @@ void skaiciuoti_sindromus(Matrica H, int klasiu_sk){
 		for (int z = 0; (z < kiekis_galimu) && (i < klasiu_sk); z++){
 			jau_uzimtas = false;//tariame, kad is nauju galimu vektoriu visi yra laisvi
 			Vektorius galimas_v = Kunas::string_to_vector(galimi_vektoriai[z]); //konvertuojame is string i vektoriu 
-			sindromai[i].clear();
-			cout << "galimas vekt.: ";
-					Kunas::print_vector(galimas_v);
-					cout << endl;
-					cout << "i: " << i << endl;
+			standart_lentele.isvalyti_sindroma(i);
 			for (int y = 0; y < H.sizeY(); y++){
-					sindromai[i].push_back( skaliarine_sandauga(galimas_v, H(y) ) );
+					standart_lentele.prijungti_prie_sindromo(i, skaliarine_sandauga(galimas_v, H(y) ) );
 			}
-			cout << "sindromai[i]";
-					Kunas::print_vector(sindromai[i]);
-					cout << endl;
-			for (int x = 0; x < i; x++){//tikrinsime visus iki siol sugeneruotus sindromus
-				
-				
-				if ( Kunas::lyginti(sindromai[x], sindromai[i]) ){
-						jau_uzimtas = true;
-						
-				}
-
-				
-			}
+			jau_uzimtas = standart_lentele.lyginti_sindromus_iki_indekso(i);
 
 			if (!jau_uzimtas) {
-				cout << "tinka vekt. ";
-				Kunas::print_vector(galimas_v);
-				cout << "  \n\n";
-				vektoriu_svoriai[i] = Kunas::rasti_svori(galimas_v);
+				standart_lentele.priskirti_svori(i, Kunas::rasti_svori(galimas_v) );
 				i++;
 			}
 			if (z == kiekis_galimu-1){//jei patikrinome paskutini potencialu lyderi
 				svoris++;
 			}	
 		}
-		
-
 	}
-	for (int j = 0; j < sindromai.size(); j++){
-		Kunas::print_vector(sindromai[j]);
-		cout << " "<<vektoriu_svoriai[j];
-		cout << endl;
-
-	}
+	standart_lentele.spausdinti();
 } 
 
 Elementas skaliarine_sandauga(Vektorius v1, Vektorius v2){
