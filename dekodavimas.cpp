@@ -4,7 +4,7 @@
 #include <iostream>
 	using namespace std;
 #include "kodas.h"	
-
+#include <cassert>
 
 
 Standart_lentele::Standart_lentele(int klasiu_kiekis): klasiu_kiekis(klasiu_kiekis){
@@ -13,14 +13,17 @@ Standart_lentele::Standart_lentele(int klasiu_kiekis): klasiu_kiekis(klasiu_kiek
 }
 
 void  Standart_lentele::isvalyti_sindroma(int indeksas){
+	assert( indeksas < klasiu_kiekis );
 	sindromai[indeksas].clear();
 }
 
 void Standart_lentele::prijungti_prie_sindromo(int indeksas, Elementas elementas){
+	assert( indeksas < klasiu_kiekis );
 	sindromai[indeksas].push_back(elementas);
 }
 
 void Standart_lentele::priskirti_svori(int indeksas, int svoris){
+	assert( indeksas < klasiu_kiekis );
 	vektoriu_svoriai[indeksas] = svoris;
 }
 
@@ -34,6 +37,7 @@ void Standart_lentele::spausdinti(){
 }
 
 bool Standart_lentele::lyginti_sindromus_iki_indekso(int indeksas){
+	assert( indeksas < klasiu_kiekis );
 	bool yra_lygiu = false;
 	for (int x = 0; x < indeksas; x++){
 		if ( Kunas::lyginti(sindromai[x], sindromai[indeksas]) )
@@ -42,11 +46,19 @@ bool Standart_lentele::lyginti_sindromus_iki_indekso(int indeksas){
 	return yra_lygiu;
 }
 
+int Standart_lentele::rasti_svori_pagal_sindroma(Vektorius sindromas){
+	int svoris;
+	for (int i = 0; i < klasiu_kiekis; i++){
+		if ( Kunas::lyginti(sindromai[i], sindromas ) )
+			svoris = vektoriu_svoriai[i];
+	}
+	return svoris;
+}
+
+
 Matrica kontroline_matrica(Matrica G){
 	G.i_rref();
-	//G.print();
 	vector<vector<int> > perstatymas = G.i_vienetine();
-	//G.print();
 	int k = G.sizeY();
 	int n = G.sizeX();
 	Matrica H(n, n-k);
@@ -65,7 +77,6 @@ Matrica kontroline_matrica(Matrica G){
 				H(eil, stulp) = '0';
 		}
 	}
-	//H.print();
 	for (int stulp = 0; stulp < n; stulp++){
 		if (perstatymas[0][stulp] < perstatymas[1][stulp]){
 			H.sukeisti_stulpelius(perstatymas[0][stulp], perstatymas[1][stulp]);
@@ -75,7 +86,7 @@ Matrica kontroline_matrica(Matrica G){
 	H.print();
 	return H;
 }
-void skaiciuoti_sindromus(Matrica H, int klasiu_sk){
+Standart_lentele skaiciuoti_sindromus(Matrica H, int klasiu_sk){
 	Standart_lentele standart_lentele(klasiu_sk);
 	bool jau_uzimtas = false;	
 	int skait_kiek = H.sizeX();
@@ -107,6 +118,7 @@ void skaiciuoti_sindromus(Matrica H, int klasiu_sk){
 		}
 	}
 	standart_lentele.spausdinti();
+	return standart_lentele;
 } 
 
 Elementas skaliarine_sandauga(Vektorius v1, Vektorius v2){
@@ -115,5 +127,53 @@ Elementas skaliarine_sandauga(Vektorius v1, Vektorius v2){
 		sum = Kunas::el_sudetis( sum, Kunas::el_daugyba(v1[i], v2[i]) );
 	} 
 	return sum;
+}
+
+void dekoduoti(Vektorius r, Matrica H, Standart_lentele standart_lentele){
+	int i = 0;
+	int svoris;
+	bool baigta = false;
+	vector <vector<Elementas> > e = generuoti_vienetinius_vektorius(H.sizeX());
+	while (!baigta){
+		vector <Elementas> sandaugos_rez;
+		for (int y = 0; y < H.sizeY(); y++){
+			sandaugos_rez.push_back( skaliarine_sandauga(r, H(y) ) );
+		}
+		svoris = standart_lentele.rasti_svori_pagal_sindroma(sandaugos_rez);
+		if (svoris == 0)
+			baigta = true;
+		else {
+			vector <Elementas> H_kart_r_plus_e;
+			Vektorius r_plus_e = Kunas::sudetis(r, e[i]);
+			for (int y = 0; y < H.sizeY(); y++){
+				H_kart_r_plus_e.push_back( skaliarine_sandauga(r_plus_e, H(y) ) );
+			}
+			int svoris_r_plus_e = standart_lentele.rasti_svori_pagal_sindroma(H_kart_r_plus_e);
+			if (svoris_r_plus_e < svoris)
+				r =  r_plus_e;
+			i++;
+		}
+	}
+	cout << "r: ";
+	Kunas::print_vector(r);
+	cout << endl;
+}
+
+vector <vector<Elementas> > generuoti_vienetinius_vektorius(int ilgis){
+	vector <vector<Elementas> > vienetiniai_vektoriai; 
+	vienetiniai_vektoriai.resize(ilgis);
+	for (int i = 0; i < ilgis; i++){
+		vienetiniai_vektoriai[i].resize(ilgis);
+	}
+	for (int i = 0; i < ilgis; i++){
+		for (int j = 0; j < ilgis; j++){
+			if (j == i)
+				vienetiniai_vektoriai[i][j] = '1';
+			else
+				vienetiniai_vektoriai[i][j] = '0';
+		}
+	}
+
+	return vienetiniai_vektoriai;
 }
 
