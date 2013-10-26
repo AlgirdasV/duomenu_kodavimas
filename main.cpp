@@ -10,6 +10,7 @@
 #include "matrica.h"
 #include "kanalas.h"
 #include "dekodavimas.h"
+#include <math.h>
 
 int main( int argc, const char* argv[] )
 {
@@ -39,7 +40,7 @@ int main( int argc, const char* argv[] )
 	vector< vector<Vektorius> > stdArray;
 	tiesinis_kodavimas(m, stdArray);
 	Matrica h = kontroline_matrica(m);
-	skaiciuoti_sindromus(h, stdArray);
+	skaiciuoti_sindromus(h, pow (2, m.sizeX()-m.sizeY() ) );
 	//Vektorius pvz;
 	//Kunas::string_to_vector("110",pvz);
 	//Vektorius rezultatas = dauginti_matrica_su_vektoriumi(m2, pvz);
