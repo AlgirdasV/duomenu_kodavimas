@@ -1,0 +1,11 @@
+info:
+Vartotojas užrašo programos nurodyto ilgio vektorių iš kūno F2 elementų. Programa patikrina, ar vektoriaus ilgis korektiškas 
+jį užkoduoja kodu: tiesinis kodas C[n,k]
+parodo užkoduotą vektorių
+siunčia jį kanalu
+parodo iš kanalo išėjusį vektorių
+praneša, kiek ir kuriose pozicijose įvyko klaidų
+dekoduoja gautą vektorių ir parodo rezultatą.
+Vartotojas turi turėti galimybę prieš dekodavimą redaguoti iš kanalo išėjusį vektorių, kad galėtų pats nurodyti klaidas ten, kur jam reikia, ir tiek, kiek reikia.
+
+matricos 4 ir 2 - pvz, kad sindromai gali pasikartoti
