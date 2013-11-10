@@ -129,7 +129,7 @@ Elementas skaliarine_sandauga(Vektorius v1, Vektorius v2){
 	return sum;
 }
 
-void dekoduoti(Vektorius r, Matrica H, Standart_lentele standart_lentele){
+Vektorius dekoduoti(Vektorius r, Matrica H, Standart_lentele standart_lentele){
 	int i = 0;
 	int svoris;
 	bool baigta = false;
@@ -157,6 +157,7 @@ void dekoduoti(Vektorius r, Matrica H, Standart_lentele standart_lentele){
 	cout << "r: ";
 	Kunas::print_vector(r);
 	cout << endl;
+	return r;
 }
 
 vector <vector<Elementas> > generuoti_vienetinius_vektorius(int ilgis){

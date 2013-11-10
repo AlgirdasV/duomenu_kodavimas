@@ -23,5 +23,5 @@ Matrica kontroline_matrica(Matrica);
 std::vector <std::vector<Elementas> > generuoti_vienetinius_vektorius(int );
 Standart_lentele skaiciuoti_sindromus(Matrica, int);
 Elementas skaliarine_sandauga(Vektorius, Vektorius);
-void dekoduoti(Vektorius , Matrica , Standart_lentele );
+Vektorius dekoduoti(Vektorius , Matrica , Standart_lentele );
 #endif

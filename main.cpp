@@ -23,7 +23,7 @@ int main( int argc, const char* argv[] )
 	
 	Matrica m;
 	m.from_file("matrica3.txt");
-	int n = m.sizeX();
+	int n = m.sizeY();
 	cout << "Iveskite "<< n << " elementu ilgio vektoriu is kuno F2 elementu\n";
 	cin >> input;
 	for (int i=0; i<input.size(); i++){
@@ -38,17 +38,25 @@ int main( int argc, const char* argv[] )
 			else incorrect=false;
 		}
 	}
+	cout << "\nGeneruojanti matrica:\n";
 	m.print();
-	//vector< vector<Vektorius> > stdArray;
-	//tiesinis_kodavimas(m, stdArray);
 	Matrica h = kontroline_matrica(m);
 	Standart_lentele s = skaiciuoti_sindromus(h, pow (2, m.sizeX()-m.sizeY() ) );
 
-	Vektorius pvz = Kunas::string_to_vector(input);
-	
-	dekoduoti(pvz, h, s);
-	//Vektorius pvz;
-	//Kunas::string_to_vector("110",pvz);
-	//Vektorius rezultatas = dauginti_matrica_su_vektoriumi(m2, pvz);
-	//Kunas::print_vector(siuntimas_kanalu(rezultatas));
+	Vektorius pradinis = Kunas::string_to_vector(input);
+	Vektorius uzkoduotas = dauginti_matrica_su_vektoriumi(m,pradinis);
+	cout << "uzkoduotas vektorius: ";
+	Kunas::print_vector(uzkoduotas);
+	cout << endl;
+	Vektorius vekt_po_siuntimo = siuntimas_kanalu(uzkoduotas);
+	cout << "vektorius po siuntimo: ";
+	Kunas::print_vector(vekt_po_siuntimo);
+	cout << endl;
+	//PARASYTI KIEK KLAIDU IR KURIOSE POZICIJOSE
+	//GALIMYBE REDAGUOTI VEKTORIU IS KANALO
+	//T. Y. NURODYTI KLAIDAS KIEK IR KUR JAM REIKIA
+	Vektorius rez = dekoduoti(vekt_po_siuntimo, h, s);
+	cout << "dekoduotas vektorius: ";
+	Kunas::print_vector(rez);
+	cout << endl;
 }

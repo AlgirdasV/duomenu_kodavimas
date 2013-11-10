@@ -61,13 +61,14 @@ void Matrica::from_file(const string& file){
 		int col=0, row=0;
     	while ( getline (myfile,line) ) {
     		this->reiksme.resize(row+1);//didiname matricos eiluciu kieki
+    		remove_carriage_return(line);//pasaliname \r simboli is eilutes
     		for (int i=0; i<line.length(); i++) {
     			if (line[i]!=' ') {
     				if ( line[i] == '1' )//yra simbolis 1
     					this->reiksme[row].push_back('1');
     				else if ( line[i] == '0' )//yra simbolis 0
     					this->reiksme[row].push_back('0');
-    				else cout<< "klaidingas simbolis faile" << file<< endl;
+    				else cout<< "klaidingas simbolis faile " << file<< endl;
     				col++;
     			}
     			
@@ -79,7 +80,15 @@ void Matrica::from_file(const string& file){
 		this->x = this->reiksme[0].size();//pazymime laukus
 		this->y = row;					//, kurie rodo matricos eiluciu ir stulpeliu sk.
 	}
-	else cout << "Unable to open file";
+	else cout << "Nepavyko atidaryti failo";
+}
+
+void Matrica::remove_carriage_return(std::string& line)
+{
+    if (*line.rbegin() == '\r')
+    {
+        line.erase(line.length() - 1);
+    }
 }
 
 void Matrica::print(){
