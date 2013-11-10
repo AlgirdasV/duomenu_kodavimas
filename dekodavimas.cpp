@@ -82,8 +82,8 @@ Matrica kontroline_matrica(Matrica G){
 			H.sukeisti_stulpelius(perstatymas[0][stulp], perstatymas[1][stulp]);
 		}
 	}
-	cout << "\nkontroline matrica\n";
-	H.print();
+	//cout << "\nkontroline matrica\n";
+	//H.print();
 	return H;
 }
 Standart_lentele skaiciuoti_sindromus(Matrica H, int klasiu_sk){

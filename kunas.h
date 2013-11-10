@@ -18,7 +18,8 @@ typedef std::vector<Elementas> Vektorius;
 		static void reset_vector( Vektorius& , int);
 		static bool lyginti(Vektorius , Vektorius );
 		static void resize_2d_vector (std::vector< std::vector<Vektorius> > &, int, int );
-		static Vektorius string_to_vector (std::string);
+		static Vektorius string_to_vector (std::string);//pavercia parametru perduota eilute
+														// i vektoriu ir ji grazina
 		static Vektorius sudetis(Vektorius binary1, Vektorius binary2);
 		static bool lygus_nuliui(Vektorius);
 		static int rasti_svori(Vektorius);

@@ -27,20 +27,24 @@ int main( int argc, const char* argv[] )
 	cout << "Iveskite "<< n << " elementu ilgio vektoriu is kuno F2 elementu\n";
 	cin >> input;
 	for (int i=0; i<input.size(); i++){
-			if (!isdigit(input[i])) incorrect=true;
+			if (input[i]!='0' && input[i]!='1') incorrect=true;
 	}
 	while (input.size() !=n || incorrect) {
 		cout << "Nekorektiskas vektorius. ";
 		cout << "Iveskite "<< n << " elementu ilgio vektoriu is kuno F2 elementu\n";
 		cin >> input;
 		for (int i=0; i<input.size(); i++){
-			if (!isdigit(input[i])) incorrect=true;
+			if (input[i]!='0' && input[i]!='1') incorrect=true;
 			else incorrect=false;
 		}
 	}
 	cout << "\nGeneruojanti matrica:\n";
 	m.print();
 	Matrica h = kontroline_matrica(m);
+	//Matrica h;
+	//h.from_file("matrica3_kontroline.txt");
+	cout << "Kontroline matrica:\n";
+	h.print();
 	Standart_lentele s = skaiciuoti_sindromus(h, pow (2, m.sizeX()-m.sizeY() ) );
 
 	Vektorius pradinis = Kunas::string_to_vector(input);
@@ -49,6 +53,8 @@ int main( int argc, const char* argv[] )
 	Kunas::print_vector(uzkoduotas);
 	cout << endl;
 	Vektorius vekt_po_siuntimo = siuntimas_kanalu(uzkoduotas);
+	
+	vekt_po_siuntimo = Kunas::string_to_vector("111000");
 	cout << "vektorius po siuntimo: ";
 	Kunas::print_vector(vekt_po_siuntimo);
 	cout << endl;
