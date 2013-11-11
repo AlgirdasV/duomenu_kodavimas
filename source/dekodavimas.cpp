@@ -154,8 +154,8 @@ Vektorius dekoduoti(Vektorius r, Matrica H, Standart_lentele standart_lentele){
 			i++;
 		}
 	}
-	cout << "r: ";
-	Kunas::print_vector(r);
+	//cout << "r: ";
+	//Kunas::print_vector(r);
 	cout << endl;
 	return r;
 }

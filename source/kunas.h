@@ -23,6 +23,7 @@ typedef std::vector<Elementas> Vektorius;
 		static Vektorius sudetis(Vektorius binary1, Vektorius binary2);
 		static bool lygus_nuliui(Vektorius);
 		static int rasti_svori(Vektorius);
+		static void spausdinti_klaidas(Vektorius , Vektorius);
 	};
 
 	

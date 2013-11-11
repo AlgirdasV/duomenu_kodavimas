@@ -11,28 +11,38 @@ using namespace std;
 
 	bool Kunas::lyginti(Vektorius a, Vektorius b){
 		bool lygu=true;
+		assert(a.size()==b.size());
 		/*
 		cout<<"lyginami vektoriai: ";
 		print_vector(a);
 		cout << " ir ";
 		print_vector(b);
 		cout <<endl;*/
-		if (a.size()==b.size()){
-			for (int i = 0; i < a.size(); i++) {
-				if (a[i]!=b[i]){
-					lygu=false;
-				}
+		for (int i = 0; i < a.size(); i++) {
+			if (a[i]!=b[i]){
+				lygu=false;
 			}
 		}
-		else {
-			cout<<"vektoriai (";
-			print_vector(a);
-			cout << ") ir (";
-			print_vector(b);
-			cout << ") nevienodo dydzio. Palyginimas negalimas\n";
-			return false;
-		}
 		return lygu;
+	}
+
+	void Kunas::spausdinti_klaidas(Vektorius a, Vektorius b){
+		assert(a.size()==b.size());
+		vector <int> klaidos;
+		for (int i = 0; i < a.size(); i++) {
+			if (a[i]!=b[i]){
+				//cout << "pozicijoje " << i << "klaida.";
+				klaidos.push_back(i);
+			}
+		}
+		cout << "Viso siuntimo metu ivyko klaidu: " << klaidos.size() << endl;
+		if (klaidos.size()!=0){
+			cout << "Klaidos pozicijose: ";
+			for (int i = 0; i < klaidos.size(); i++) {
+				cout << klaidos[i]+1 << " ";
+			}
+			cout << endl;
+		}
 	}
 
 	Vektorius Kunas::daugyba(Vektorius binary1, Vektorius binary2) {
@@ -168,7 +178,7 @@ using namespace std;
 	
 	void Kunas::print_vector( Vektorius v){
 		for (int i=0; i < v.size(); i++){
-			cout << v[i];
+			cout << v[i] << " ";
 		}
 		
 	}

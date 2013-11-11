@@ -6,7 +6,7 @@ using namespace std;
 Vektorius siuntimas_kanalu(Vektorius v){
 	Vektorius rez;
 	srand (time(NULL));
-	float tikimybe = 0.4;//tikimybe, kad simbolis bus iskraipytas
+	float tikimybe = 0.2;//tikimybe, kad simbolis bus iskraipytas
 	int klaidu_sk = 0;
 	for ( int i = 0; i < v.size(); i++ ) {
 		float a = (float)rand()/(float)RAND_MAX;//generuoja atsitiktini skaiciu nuo 0 iki 1
