@@ -22,12 +22,12 @@ int main( int argc, const char* argv[] )
 	//SUVESTI GENERUOJANCIA MATRICA PACIAM
 	//ARBA SUGENERUOTI ATSITIKTINE PAGAL NURODYTA DYDI
 	//m.from_file("../data/matrica3.txt");
-	m.generuoti_matrica(5,3);
+	m.generuoti_matrica(5,6);
 	cout << "\nGeneruojanti matrica:\n";
 	m.print();
 	Matrica h = kontroline_matrica(m);
 	cout << "Kontroline matrica:\n";
-	h.print();/*
+	h.print();
 	Standart_lentele s = skaiciuoti_sindromus(h, pow (2, m.sizeX()-m.sizeY() ) );
 	int n = m.sizeY();
 	
@@ -55,9 +55,9 @@ int main( int argc, const char* argv[] )
 	cout << "Dekoduotas vektorius: ";
 	Kunas::print_vector(rez);
 	cout << endl;
-	cout << "\nNoredami baigti spauskite enter";
+	cout << "\nNoredami baigti spauskite <enter>";
 	cin.get();
-	cin.get();*/
+	cin.get();
 }
 
 Vektorius vektoriaus_ivedimas(int n){//is konsoles ivedamas n simboliu vektorius is kuno F2 elementu

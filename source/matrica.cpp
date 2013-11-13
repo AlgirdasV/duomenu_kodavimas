@@ -184,31 +184,40 @@ vector<vector<int> > Matrica::i_vienetine() {//grazina perstatymo vektoriu
 	int a, b;
 	vector<vector<int> > perstatymas;
 	int stulp_sk = this->x;
+	int eil_sk = this->y;
 	perstatymas.resize(2);
 	perstatymas[0].resize(this->x);
 	perstatymas[1].resize(this->x);
 	
-	for (int stulp = 0; stulp < this->x; stulp++){
+	for (int stulp = 0; stulp < stulp_sk; stulp++){
 		perstatymas[0][stulp]=stulp;
 		perstatymas[1][stulp]=stulp;
 	}
-	for (int eil = 0; eil < this->y; eil++){
-		for (int stulp = 0; stulp < this->y; stulp++){
+	if (eil_sk > stulp_sk)
+		eil_sk = stulp_sk;
+
+	for (int eil = 0; eil < eil_sk; eil++){
+		for (int stulp = 0; stulp < eil_sk; stulp++){
 			if ( eil==stulp ){
 				if ( this->reiksme[eil][stulp] != '1' ){
 					a = stulp;
 					int stulp2 = a+1;
-					while(this->reiksme[eil][stulp2] != '1'){	
-						stulp2++;
+					if (stulp2 < eil_sk){
+						while( (stulp2 < eil_sk-1)  && (this->reiksme[eil][stulp2] != '1')) {	
+							stulp2++;
+						}
+						b = stulp2;
+						this->sukeisti_stulpelius(a, b);
+						//Perstatymo vektoriuje taipogi sukeiciame stulpelius:
+						int pagalb;
+						pagalb = perstatymas[1][a];
+						perstatymas[1][a] = perstatymas[1][b];
+						perstatymas[1][b] = pagalb;
+						//
+					} 
+					else{
+						this->reiksme[eil][a]='1';
 					}
-					b = stulp2;
-					this->sukeisti_stulpelius(a, b);
-					//Perstatymo vektoriuje taipogi sukeiciame stulpelius:
-					int pagalb;
-					pagalb = perstatymas[1][a];
-					perstatymas[1][a] = perstatymas[1][b];
-					perstatymas[1][b] = pagalb;
-					//
 				}
 			}
 		}
