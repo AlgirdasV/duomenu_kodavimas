@@ -9,6 +9,8 @@
 #include <fstream>
 #include <cstring>
 #include "pagalbines_funkcijos.h"	
+#include <stdlib.h>
+#include <time.h>
 
 Matrica::Matrica(int sizeX, int sizeY): x(sizeX), y(sizeY) {
 	reiksme.resize(sizeY);
@@ -23,41 +25,41 @@ Matrica::Matrica(): x(0), y(0)  {
 Matrica::~Matrica() {
 }
 
-void Matrica::keisti_dydi(const int sizeX,const int sizeY){
-	this->x = sizeX;
-	this->y = sizeY;
+void Matrica::keisti_dydi(const int sizeX,const int sizeY){//Funkcija keicia matricos dydi.
+	this->x = sizeX;										//Parametrais ima stulpeliu ir eiluciu dydzius
+	this->y = sizeY;										//Rezultatas: keicia matricos, kuriai funkcija iskviesta, dydi
 	this->reiksme.resize(sizeY);
 	for (int i = 0; i < sizeY; i++) {
 		this->reiksme[i].resize(sizeX);
 	}
 }
 
-char& Matrica::operator()(const int nRow, const int nCol)	//leidzia prieti prie matricos reiksmes
-{															//nurodytame stulpelyje ir eiluteje
-    assert(nCol >= 0 && nCol < this->sizeX() );
+char& Matrica::operator()(const int nRow, const int nCol)	//Funkcija leidzia prieti prie matricos reiksmes
+{															//Parametrais nurodomi stulpelio ir eilutes nr.
+    assert(nCol >= 0 && nCol < this->sizeX() );				//rezultatas: grazina matricos reiksme
     assert(nRow >= 0 && nRow < this->sizeY() );
  
     return this->reiksme[nRow][nCol];
 }
 
-std::vector<char>& Matrica::operator()(const int nRow) 	//grazina nurodytos eilutes vektoriu
-{
-    assert(nRow >= 0 && nRow < this->sizeY() );
+std::vector<char>& Matrica::operator()(const int nRow) 	//Funkcija grazina eilute
+{														//Parametras: eilutes nr
+    assert(nRow >= 0 && nRow < this->sizeY() );			//Grazina matricos eilute kaip vektoriu
  
     return this->reiksme[nRow];
 }
 
-int Matrica::sizeX () {//grazina matricos stulpeliu sk.
+int Matrica::sizeX () {//Funkcija grazina matricos stulpeliu sk.
 	return this->x;
 }
 
-int Matrica::sizeY () {//grazina matricos eiluciu sk.
+int Matrica::sizeY () {//Funkcija grazina matricos eiluciu sk.
 	return this->y;
 }
 
-void Matrica::from_file(const string& file){
-	ifstream myfile (file.c_str());
-	if (myfile.is_open()) {
+void Matrica::from_file(const string& file){//Funkcija uzkrauna matrica is failo
+	ifstream myfile (file.c_str());			//Parametras: failo pavadinimas
+	if (myfile.is_open()) {					//Rezultatas: i matrica, kuriai iskviesta funkcija, irasomi duomenis is failo
 		string line;
 		int col=0, row=0;
     	while ( getline (myfile,line) ) {
@@ -86,8 +88,8 @@ void Matrica::from_file(const string& file){
 
 
 
-void Matrica::print(){
-	
+void Matrica::print(){//Funkcija spausdina matrica i konsole
+					//Rezultatas: matricos, kuriai iskviesta funkcija, skaitmenys yra spausdinami.
 	for (int row=0; row< this->y; row++) {
 		for (int col=0; col< this->x; col++){
 			cout << this->reiksme[row][col]<<" ";
@@ -97,7 +99,9 @@ void Matrica::print(){
 	cout << endl;
 }
 
-void Matrica::dauginti_eilute(int eil, Elementas daugiklis){
+void Matrica::dauginti_eilute(int eil, Elementas daugiklis){//Funkcija daugina matricos eilute is daugiklio
+															//Parametrai: eilutes nr. ir elemento tipo daugiklis
+															//Rezultatas keiciama matricos, kuriai isvkiesta funkcija, eilute
 	//cout<< "eilute ["<< eil<<"] dauginama is "<<daugiklis<<endl;
 	assert(eil >= 0 && eil < this->y );
 	for (int stulp = 0; stulp < this->x; stulp++){
@@ -210,4 +214,19 @@ vector<vector<int> > Matrica::i_vienetine() {//grazina perstatymo vektoriu
 		}
 	}
 	return perstatymas;
+}
+
+void Matrica::generuoti_matrica(int eil_sk, int stulp_sk){
+	this->keisti_dydi(stulp_sk, eil_sk);
+	srand (time(NULL));
+	int naujas_elementas;
+	for (int eil = 0; eil < eil_sk; eil++){
+		for (int stulp = 0; stulp < stulp_sk; stulp++){
+			naujas_elementas = rand() % 2; //atsitiktinis sveikas skaicius nuo 0 iki 1
+			if (naujas_elementas == 1)
+				this->reiksme[eil][stulp]='1';
+			else 
+				this->reiksme[eil][stulp]='0';
+		}
+	}
 }

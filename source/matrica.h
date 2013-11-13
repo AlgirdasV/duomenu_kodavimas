@@ -26,6 +26,7 @@ class Matrica {
 		void sukeisti_stulpelius(int, int);
 		void i_rref();
 		std::vector<std::vector<int> > i_vienetine();
+		void generuoti_matrica(int, int);
 
 };
 #endif

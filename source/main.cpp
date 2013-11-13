@@ -21,14 +21,16 @@ int main( int argc, const char* argv[] )
 	Matrica m;
 	//SUVESTI GENERUOJANCIA MATRICA PACIAM
 	//ARBA SUGENERUOTI ATSITIKTINE PAGAL NURODYTA DYDI
-	m.from_file("../data/matrica3.txt");
+	//m.from_file("../data/matrica3.txt");
+	m.generuoti_matrica(5,3);
 	cout << "\nGeneruojanti matrica:\n";
 	m.print();
 	Matrica h = kontroline_matrica(m);
 	cout << "Kontroline matrica:\n";
-	h.print();
+	h.print();/*
 	Standart_lentele s = skaiciuoti_sindromus(h, pow (2, m.sizeX()-m.sizeY() ) );
 	int n = m.sizeY();
+	
 	Vektorius pradinis = vektoriaus_ivedimas(n);
 	Vektorius uzkoduotas = dauginti_matrica_su_vektoriumi(m,pradinis);
 	cout << "Uzkoduotas vektorius:  ";
@@ -55,7 +57,7 @@ int main( int argc, const char* argv[] )
 	cout << endl;
 	cout << "\nNoredami baigti spauskite enter";
 	cin.get();
-	cin.get();
+	cin.get();*/
 }
 
 Vektorius vektoriaus_ivedimas(int n){//is konsoles ivedamas n simboliu vektorius is kuno F2 elementu
