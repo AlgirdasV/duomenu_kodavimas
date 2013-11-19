@@ -13,16 +13,58 @@
 #include <math.h>
 #include "pagalbines_funkcijos.h"
 #include <stdlib.h>
+#include <sstream>
+	using namespace std;
 
 Vektorius vektoriaus_ivedimas(int);
+bool isNum(string);
+int StringToNumber(string&);
 
 int main( int argc, const char* argv[] )
 {
 	Matrica m;
+	string input1;
+	do {
+		cout << "ar norite generuojancia matrica nuskaityti is failo? " ;
+		cout <<	"Jei ne, matrica bus sugeneruota. (t/n)\n";
+		cin >> input1;
+		remove_carriage_return(input1);
+	} while (input1!="t" && input1!="n");
+	if (input1 == "t") {
+		bool bad_file;
+		do{
+			bad_file=false;
+			cout << "iveskite failo, kuriame irasyti matricos duomenys, pavadinima:";
+			string filename;
+			cin >> filename;
+			if (!m.from_file("../data/"+filename)){
+				bad_file=true;
+			}
+		} while (bad_file);
+	}
+	else {
+		string kodo_ilgis;
+		string dimensija;
+		do {
+			cout << "iveskite kodo ilgi n: ";
+			cin >> kodo_ilgis;
+			remove_carriage_return(kodo_ilgis);
+		} while (!isNum(kodo_ilgis)); 
+		do {
+			cout << "iveskite kodo dimensija k: ";
+			cin >> dimensija;
+			remove_carriage_return(dimensija);
+		} while (!isNum(dimensija)); 
+		int n = StringToNumber(kodo_ilgis);
+		int k = StringToNumber(dimensija);
+		m.generuoti_matrica(k, n);//dimensija atitinka eiluciu skaiciu, kodo_ilgis - stulpeliu sk
+	}
+
+	
 	//SUVESTI GENERUOJANCIA MATRICA PACIAM
 	//ARBA SUGENERUOTI ATSITIKTINE PAGAL NURODYTA DYDI
-	//m.from_file("../data/matrica3.txt");
-	m.generuoti_matrica(5,6);
+	//
+	
 	cout << "\nGeneruojanti matrica:\n";
 	m.print();
 	Matrica h = kontroline_matrica(m);
@@ -41,13 +83,13 @@ int main( int argc, const char* argv[] )
 	Kunas::print_vector(vekt_po_siuntimo);
 	cout << endl;
 	Kunas::spausdinti_klaidas(uzkoduotas, vekt_po_siuntimo);
-	string input;
+	string input2;
 	do {
 		cout << "ar norite pats redaguoti klaidas? (t/n)" << endl;
-		cin >> input;
-		remove_carriage_return(input);
-	} while (input!="t" && input!="n");
-	if (input == "t") {
+		cin >> input2;
+		remove_carriage_return(input2);
+	} while (input2!="t" && input2!="n");
+	if (input2 == "t") {
 		cout << "Iveskite vektoriu po siuntimo: ";
 		vekt_po_siuntimo = vektoriaus_ivedimas(vekt_po_siuntimo.size());
 	}
@@ -78,4 +120,26 @@ Vektorius vektoriaus_ivedimas(int n){//is konsoles ivedamas n simboliu vektorius
 		}
 	} while (input.size() !=n || incorrect);
 	return Kunas::string_to_vector(input);
+}
+
+bool isNum(string s) {
+    int i = 0,  flag;
+
+    while(s[i]){
+            //if there is a letter in a string then string is not a number
+        if(isalpha(s[i])){
+            flag = 0;
+            break;
+        }
+        else flag = 1;
+        i++;
+        }
+    if (flag == 1) return true;
+    else return false;
+}
+
+int StringToNumber( string &Text ){//Text not by const reference so that the function can be used with a                                //character array as argument
+	stringstream ss(Text);
+	int result;
+	return ss >> result ? result : 0;
 }

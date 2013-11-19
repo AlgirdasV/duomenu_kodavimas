@@ -15,7 +15,7 @@ class Matrica {
 		~Matrica();
 		int sizeX();
 		int sizeY();
-		void from_file(const std::string&);
+		bool from_file(const std::string&);
 		void print();
 		void keisti_dydi(const int,const int);
 		char& operator()(const int , const int );

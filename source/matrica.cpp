@@ -57,7 +57,7 @@ int Matrica::sizeY () {//Funkcija grazina matricos eiluciu sk.
 	return this->y;
 }
 
-void Matrica::from_file(const string& file){//Funkcija uzkrauna matrica is failo
+bool Matrica::from_file(const string& file){//Funkcija uzkrauna matrica is failo
 	ifstream myfile (file.c_str());			//Parametras: failo pavadinimas
 	if (myfile.is_open()) {					//Rezultatas: i matrica, kuriai iskviesta funkcija, irasomi duomenis is failo
 		string line;
@@ -82,8 +82,12 @@ void Matrica::from_file(const string& file){//Funkcija uzkrauna matrica is failo
 		myfile.close();
 		this->x = this->reiksme[0].size();//pazymime laukus
 		this->y = row;					//, kurie rodo matricos eiluciu ir stulpeliu sk.
+		return true;
 	}
-	else cout << "Nepavyko atidaryti failo \"" << file <<"\"";
+	else {
+		cout << "Nepavyko atidaryti failo \"" << file <<"\"";
+		return false;
+	}
 }
 
 
