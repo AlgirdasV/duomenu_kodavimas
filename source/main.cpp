@@ -25,7 +25,8 @@ int main( int argc, const char* argv[] )
 	Matrica m;
 	string input1;
 	do {
-		cout << "ar norite generuojancia matrica nuskaityti is failo? " ;
+		cout << "Kodavimo programa pradeda darba\n";
+		cout << "\nAr norite generuojancia matrica nuskaityti is failo? " ;
 		cout <<	"Jei ne, matrica bus sugeneruota. (t/n)\n";
 		cin >> input1;
 		remove_carriage_return(input1);
@@ -34,7 +35,7 @@ int main( int argc, const char* argv[] )
 		bool bad_file;
 		do{
 			bad_file=false;
-			cout << "iveskite failo, kuriame irasyti matricos duomenys, pavadinima:";
+			cout << "Iveskite failo, kuriame irasyti matricos duomenys, pavadinima:";
 			string filename;
 			cin >> filename;
 			if (!m.from_file("../data/"+filename)){
@@ -45,18 +46,30 @@ int main( int argc, const char* argv[] )
 	else {
 		string kodo_ilgis;
 		string dimensija;
+		bool incorrect = false;
+		int k, n;
 		do {
-			cout << "iveskite kodo ilgi n: ";
-			cin >> kodo_ilgis;
-			remove_carriage_return(kodo_ilgis);
-		} while (!isNum(kodo_ilgis)); 
-		do {
-			cout << "iveskite kodo dimensija k: ";
-			cin >> dimensija;
-			remove_carriage_return(dimensija);
-		} while (!isNum(dimensija)); 
-		int n = StringToNumber(kodo_ilgis);
-		int k = StringToNumber(dimensija);
+			if (incorrect) {
+				cout << "\nKodo ilgis turi buti didesnis uz kodo dimensija.\n";
+				cout << "Bandykite dar: ";
+			}
+			incorrect = false;
+			do {
+				cout << "Iveskite kodo ilgi n: ";
+				cin >> kodo_ilgis;
+				remove_carriage_return(kodo_ilgis);
+			} while (!isNum(kodo_ilgis)); 
+			do {
+				cout << "Iveskite kodo dimensija k: ";
+				cin >> dimensija;
+				remove_carriage_return(dimensija);
+			} while (!isNum(dimensija) ); 
+			n = StringToNumber(kodo_ilgis);
+			k = StringToNumber(dimensija);
+			if (k > n)
+				incorrect = true;
+		} while (incorrect);
+		
 		m.generuoti_matrica(k, n);//dimensija atitinka eiluciu skaiciu, kodo_ilgis - stulpeliu sk
 	}
 
@@ -85,7 +98,7 @@ int main( int argc, const char* argv[] )
 	Kunas::spausdinti_klaidas(uzkoduotas, vekt_po_siuntimo);
 	string input2;
 	do {
-		cout << "ar norite pats redaguoti klaidas? (t/n)" << endl;
+		cout << "Ar norite pats redaguoti klaidas? (t/n)" << endl;
 		cin >> input2;
 		remove_carriage_return(input2);
 	} while (input2!="t" && input2!="n");
@@ -100,6 +113,7 @@ int main( int argc, const char* argv[] )
 	cout << "\nNoredami baigti spauskite <enter>";
 	cin.get();
 	cin.get();
+	cout << "Kodavimo programa baiga darba";
 }
 
 Vektorius vektoriaus_ivedimas(int n){//is konsoles ivedamas n simboliu vektorius is kuno F2 elementu

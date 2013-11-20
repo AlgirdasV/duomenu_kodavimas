@@ -158,7 +158,7 @@ void Matrica::i_rref() {
 	int lead = 0;
  
   	for (int row = 0; row < this->y; row++){
-	    if (lead >= this->x)
+	    if (lead >= this->x)	//jeigu perejome visus stulpelius
 	    	return;
 	    int i = row;
 	    //cout<<"i = "<<i<<" lead = "<<lead<<endl;
@@ -184,49 +184,51 @@ void Matrica::i_rref() {
   	}
 }
 
-vector<vector<int> > Matrica::i_vienetine() {//grazina perstatymo vektoriu
+vector<vector<int> > Matrica::i_vienetine() {//grazina perstata
 	int a, b;
-	vector<vector<int> > perstatymas;
+	vector<vector<int> > perstatas;
 	int stulp_sk = this->x;
 	int eil_sk = this->y;
-	perstatymas.resize(2);
-	perstatymas[0].resize(this->x);
-	perstatymas[1].resize(this->x);
+	perstatas.resize(2);
+	perstatas[0].resize(this->x);
+	perstatas[1].resize(this->x);
 	
 	for (int stulp = 0; stulp < stulp_sk; stulp++){
-		perstatymas[0][stulp]=stulp;
-		perstatymas[1][stulp]=stulp;
+		perstatas[0][stulp]=stulp;
+		perstatas[1][stulp]=stulp;
 	}
 	if (eil_sk > stulp_sk)
 		eil_sk = stulp_sk;
 
 	for (int eil = 0; eil < eil_sk; eil++){
-		for (int stulp = 0; stulp < eil_sk; stulp++){
-			if ( eil==stulp ){
-				if ( this->reiksme[eil][stulp] != '1' ){
-					a = stulp;
+		for (int stulp = 0; stulp < eil_sk; stulp++){	// Einame per stulpelius, kol stulpelio numeris nedidesnis uz eiluciu sk.
+			if ( eil==stulp ){							//Jei stulpelio ir eil. numeris sutampa
+				if ( this->reiksme[eil][stulp] != '1' ){ //ir reiksme nera 1,
+					a = stulp;							// tuomet ieskome stulpeliu kuriuose reiksme butu 1.
 					int stulp2 = a+1;
-					if (stulp2 < eil_sk){
-						while( (stulp2 < eil_sk-1)  && (this->reiksme[eil][stulp2] != '1')) {	
-							stulp2++;
-						}
-						b = stulp2;
-						this->sukeisti_stulpelius(a, b);
-						//Perstatymo vektoriuje taipogi sukeiciame stulpelius:
-						int pagalb;
-						pagalb = perstatymas[1][a];
-						perstatymas[1][a] = perstatymas[1][b];
-						perstatymas[1][b] = pagalb;
-						//
-					} 
-					else{
-						this->reiksme[eil][a]='1';
+					
+					while( this->reiksme[eil][stulp2] != '1' && stulp2 < stulp_sk) {	
+						stulp2++;
 					}
+					if (stulp2 >= stulp_sk){
+						cout << "Generavimo matrica nesuvedama i standartine forma\n";
+						exit (EXIT_FAILURE);
+					}
+					b = stulp2;
+					this->sukeisti_stulpelius(a, b);	//rade stulpelius su reiksme 1, 
+													//sukeiciame juos su pries tai pasizymetu stulpeliu
+					//Perstatymo vektoriuje taipogi sukeiciame stulpelius:
+					int pagalb;
+					pagalb = perstatas[1][a];
+					perstatas[1][a] = perstatas[1][b];
+					perstatas[1][b] = pagalb;
+					//
+					 
 				}
 			}
 		}
 	}
-	return perstatymas;
+	return perstatas;
 }
 
 void Matrica::generuoti_matrica(int eil_sk, int stulp_sk){

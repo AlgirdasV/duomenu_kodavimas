@@ -58,7 +58,11 @@ int Standart_lentele::rasti_svori_pagal_sindroma(Vektorius sindromas){
 
 Matrica kontroline_matrica(Matrica G){
 	G.i_rref();
+	cout << "rref forma\n";
+	G.print();
 	vector<vector<int> > perstatymas = G.i_vienetine();
+	cout << "vienetine: \n";
+	G.print();
 	int k = G.sizeY();
 	int n = G.sizeX();
 	Matrica H(n, n-k);
