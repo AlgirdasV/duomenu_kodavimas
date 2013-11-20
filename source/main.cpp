@@ -72,11 +72,6 @@ int main( int argc, const char* argv[] )
 		
 		m.generuoti_matrica(k, n);//dimensija atitinka eiluciu skaiciu, kodo_ilgis - stulpeliu sk
 	}
-
-	
-	//SUVESTI GENERUOJANCIA MATRICA PACIAM
-	//ARBA SUGENERUOTI ATSITIKTINE PAGAL NURODYTA DYDI
-	//
 	
 	cout << "\nGeneruojanti matrica:\n";
 	m.print();
@@ -91,7 +86,25 @@ int main( int argc, const char* argv[] )
 	cout << "Uzkoduotas vektorius:  ";
 	Kunas::print_vector(uzkoduotas);
 	cout << endl;
-	Vektorius vekt_po_siuntimo = siuntimas_kanalu(uzkoduotas);
+	string klaidos_tikimybe;
+	bool tikimybe_klaidinga = false;
+	double tikimybe;
+	do{
+		if (tikimybe_klaidinga){
+			cout << "Tikimybe turi buti realus sk. intervale nuo 0.0 iki 1.0\n";
+			cout << "Bandykite dar \n";
+		}
+		tikimybe_klaidinga = false;
+		do {
+					cout << "Iveskite klaidos tikimybe siunciant vektoriu kanalu: ";
+					cin >> klaidos_tikimybe;
+					remove_carriage_return(klaidos_tikimybe);
+				} while (!isNum(klaidos_tikimybe) );
+		tikimybe = ::atof(klaidos_tikimybe.c_str());
+		if (tikimybe <= 0.0 || tikimybe > 1.0) 
+			tikimybe_klaidinga = true;
+	} while (tikimybe_klaidinga);
+	Vektorius vekt_po_siuntimo = siuntimas_kanalu(uzkoduotas, tikimybe);
 	cout << "Vektorius po siuntimo: ";
 	Kunas::print_vector(vekt_po_siuntimo);
 	cout << endl;
