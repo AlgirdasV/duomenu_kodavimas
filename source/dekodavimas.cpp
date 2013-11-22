@@ -1,4 +1,5 @@
 #include "dekodavimas.h"
+#include "pagalbines_funkcijos.h"
 #include <vector>
 	using namespace std;
 #include <iostream>
@@ -58,10 +59,10 @@ int Standart_lentele::rasti_svori_pagal_sindroma(Vektorius sindromas){
 
 Matrica kontroline_matrica(Matrica G){
 	G.i_rref();
-	cout << "rref forma\n";
-	G.print();
+	//cout << "rref forma\n";
+	//G.print();
 	vector<vector<int> > perstatymas = G.i_vienetine();
-	cout << "vienetine: \n";
+	cout << "G. matricos standartine forma: \n";
 	G.print();
 	int k = G.sizeY();
 	int n = G.sizeX();
@@ -73,6 +74,8 @@ Matrica kontroline_matrica(Matrica G){
 			
 		}
 	}
+	//cout << "H is G:\n";
+	//H.print ();
 	for (int eil = 0; eil < H.sizeY(); eil++) {
 		for (int stulp = k; stulp < H.sizeX(); stulp++){
 			if (eil+k==stulp)

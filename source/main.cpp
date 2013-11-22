@@ -120,7 +120,7 @@ int main( int argc, const char* argv[] )
 		vekt_po_siuntimo = vektoriaus_ivedimas(vekt_po_siuntimo.size());
 	}
 	Vektorius rez = dekoduoti(vekt_po_siuntimo, h, s);
-	cout << "Dekoduotas vektorius: ";
+	cout << "Gautas vektorius: ";
 	Kunas::print_vector(rez);
 	cout << endl;
 	cout << "\nNoredami baigti spauskite <enter>";
