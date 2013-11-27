@@ -180,15 +180,15 @@ using namespace std;
 		for (int i=0; i < v.size(); i++){
 			cout << v[i] << " ";
 		}
-		
+		cout << endl;
 	}
 
-	void Kunas::reset_vector( Vektorius& v, int size){
-		v.clear();
-		for (int i=0; i<size; i++) {
-			v.push_back('0');
-		}
-	}
+//	void Kunas::reset_vector( Vektorius& v, int size){
+//		v.clear();
+//		for (int i=0; i<size; i++) {
+//			v.push_back('0');
+//		}
+//	}
 
 	void Kunas::resize_2d_vector (vector< vector<Vektorius> >& v, int X, int Y){
 		v.resize(Y);
@@ -205,3 +205,22 @@ using namespace std;
 		}
 		return v;
 	}
+
+	void Kunas::sukeisti_simbolius(Vektorius& v, int simb1, int simb2) {
+		//cout << "sukeiciami simboliai " << simb1 << " ir " << simb2 << endl;
+			assert(simb1 >= 0 && simb1 < v.size() );
+			assert(simb2 >= 0 && simb2 < v.size() );
+			char pagalb;
+			pagalb = v[simb1];
+			v[simb1] = v[simb2];
+			v[simb2] = pagalb;
+	}
+
+	void Kunas::dauginti_simboli_ir_prideti(Vektorius& v, int simb1, Elementas el, int simb2) {
+				//cout << "simbolis " << simb1 << " dauginamas is " << el << " ir pridedamas prie " << simb2 << endl;
+				assert(simb1 >= 0 && simb1 < v.size() );
+				assert(simb2 >= 0 && simb2 < v.size() );
+				Elementas rez = Kunas::el_daugyba(v[simb1], el);
+
+				v[simb2] = Kunas::el_sudetis(v[simb2], rez);
+		}

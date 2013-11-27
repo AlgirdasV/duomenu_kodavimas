@@ -127,6 +127,19 @@ void Matrica::dauginti_eilute_ir_atimti(int eil1, Elementas daugiklis, int eil2)
 	
 }
 
+void Matrica::dauginti_eilute_ir_prideti(int eil1, Elementas daugiklis, int eil2){
+	//cout<< "eilute ["<< eil1<<"] dauginama is "<<daugiklis<<" ir pridedama prie eilutes ["<<eil2<<"]\n";
+	assert(eil1 >= 0 && eil1 < this->y );
+	assert(eil2 >= 0 && eil2 < this->y );
+	Vektorius pagalb;
+	pagalb.resize(this->x);
+	for (int stulp = 0; stulp < this->x; stulp++){
+		pagalb[stulp] = Kunas::el_daugyba( this->reiksme[eil1][stulp], daugiklis );
+		this->reiksme[eil2][stulp] = Kunas::el_sudetis( pagalb[stulp], this->reiksme[eil2][stulp] );
+	}
+
+}
+
 void Matrica::sukeisti_eilutes(int eil1, int eil2){
 	//cout<< "sukeiciamos eilutes: "<< eil1<<" ir "<<eil2<<endl;
 	assert(eil1 >= 0 && eil1 < this->y );
@@ -212,6 +225,7 @@ vector<vector<int> > Matrica::i_vienetine() {//grazina perstata
 					}
 					if (stulp2 >= stulp_sk){
 						cout << "Generavimo matrica nesuvedama i standartine forma\n";
+						cout <<  "Kodavimo programa baiga darba\n";
 						exit (EXIT_FAILURE);
 					}
 					b = stulp2;
@@ -244,4 +258,32 @@ void Matrica::generuoti_matrica(int eil_sk, int stulp_sk){
 				this->reiksme[eil][stulp]='0';
 		}
 	}
+}
+
+void Matrica::transponuoti(){
+	int eil_sk = this->y;
+	int stulp_sk = this->x;
+	Vektorius pagalbinis;
+	Matrica temp(eil_sk,stulp_sk);
+	for (int stulp = 0; stulp < stulp_sk; ++stulp) {
+		for (int eil = 0; eil < eil_sk; ++eil) {
+			temp(stulp, eil) = this->reiksme[eil][stulp];
+		}
+	}
+	this->keisti_dydi(eil_sk, stulp_sk);
+	for (int eil = 0; eil < temp.y; ++eil) {
+		for (int stulp = 0; stulp < temp.x; ++stulp) {
+			this->reiksme[eil][stulp] = temp(eil, stulp);
+		}
+	}
+}
+
+void Matrica::pasalinti_eilute(int eilute){
+	//cout << "iskviesta f-ja pasalinti_eilute " << eilute << endl;
+	assert(eilute >= 0 && eilute < this->y );
+	for (int eil = eilute; eil < this->y - 1; ++eil) {//perkopijuojamos eilutes sekancios po tos, kuri buvo istrinta
+		this->reiksme[eil] = this->reiksme[eil+1];
+	}
+	//this->reiksme[this->y].clear();//isvaloma paskutine eilute
+	this->keisti_dydi(this->sizeX(), this->sizeY() - 1);
 }

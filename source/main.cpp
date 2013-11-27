@@ -78,8 +78,9 @@ int main( int argc, const char* argv[] )
 	Matrica h = kontroline_matrica(m);
 	cout << "Kontroline matrica:\n";
 	h.print();
-	Standart_lentele s = skaiciuoti_sindromus(h, pow (2, m.sizeX()-m.sizeY() ) );
 	int n = m.sizeY();
+	int k = m.sizeX();
+	Standart_lentele s = skaiciuoti_sindromus(h, pow (2, k-n ) );
 	
 	Vektorius pradinis = vektoriaus_ivedimas(n);
 	Vektorius uzkoduotas = dauginti_matrica_su_vektoriumi(m,pradinis);
@@ -119,14 +120,17 @@ int main( int argc, const char* argv[] )
 		cout << "Iveskite vektoriu po siuntimo: ";
 		vekt_po_siuntimo = vektoriaus_ivedimas(vekt_po_siuntimo.size());
 	}
-	Vektorius rez = dekoduoti(vekt_po_siuntimo, h, s);
-	cout << "Gautas vektorius: ";
+	cout << "Vektorius po siuntimo: ";
+	Kunas::print_vector(vekt_po_siuntimo);
+	Vektorius rez = taisyti_klaidas(vekt_po_siuntimo, h, s);
+	cout << "Vektorius su istaisytomis klaidomis: ";
 	Kunas::print_vector(rez);
 	cout << endl;
+	dekoduoti(rez, m);
 	cout << "\nNoredami baigti spauskite <enter>";
 	cin.get();
 	cin.get();
-	cout << "Kodavimo programa baiga darba";
+	cout << "\nKodavimo programa baiga darba";
 }
 
 Vektorius vektoriaus_ivedimas(int n){//is konsoles ivedamas n simboliu vektorius is kuno F2 elementu

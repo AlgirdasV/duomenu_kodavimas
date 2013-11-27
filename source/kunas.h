@@ -15,7 +15,7 @@ typedef std::vector<Elementas> Vektorius;
 		static Elementas el_sudetis(Elementas, Elementas);
 		static Elementas el_atimtis(Elementas, Elementas);
 		static Elementas el_daugyba(Elementas, Elementas);
-		static void reset_vector( Vektorius& , int);
+		//static void reset_vector( Vektorius& , int);
 		static bool lyginti(Vektorius , Vektorius );
 		static void resize_2d_vector (std::vector< std::vector<Vektorius> > &, int, int );
 		static Vektorius string_to_vector (std::string);//pavercia parametru perduota eilute
@@ -24,6 +24,8 @@ typedef std::vector<Elementas> Vektorius;
 		static bool lygus_nuliui(Vektorius);
 		static int rasti_svori(Vektorius);
 		static void spausdinti_klaidas(Vektorius , Vektorius);
+		static void sukeisti_simbolius(Vektorius&, int, int);
+		static void dauginti_simboli_ir_prideti(Vektorius& , int ,Elementas , int );
 	};
 
 	
