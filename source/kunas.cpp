@@ -180,7 +180,7 @@ using namespace std;
 		for (int i=0; i < v.size(); i++){
 			cout << v[i] << " ";
 		}
-		cout << endl;
+
 	}
 
 //	void Kunas::reset_vector( Vektorius& v, int size){

@@ -9,36 +9,37 @@
 #include <math.h>
 
 
-Standart_lentele::Standart_lentele(int klasiu_kiekis): klasiu_kiekis(klasiu_kiekis){
+Standart_lentele::Standart_lentele(int klasiu_kiekis): klasiu_kiekis(klasiu_kiekis){ // Standartines lenteles objekto konstruktorius
 	sindromai.resize(klasiu_kiekis);
 	vektoriu_svoriai.resize(klasiu_kiekis);
 }
 
-void  Standart_lentele::isvalyti_sindroma(int indeksas){
+void  Standart_lentele::isvalyti_sindroma(int indeksas){ // Funkcija isvalo nurodyta lenteles sindroma
 	assert( indeksas < klasiu_kiekis );
 	sindromai[indeksas].clear();
 }
 
-void Standart_lentele::prijungti_prie_sindromo(int indeksas, Elementas elementas){
+void Standart_lentele::prijungti_prie_sindromo(int indeksas, Elementas elementas){ // Funkcija prijungia viena elementa prie nurodyto lenteles sindromo
 	assert( indeksas < klasiu_kiekis );
 	sindromai[indeksas].push_back(elementas);
 }
 
-void Standart_lentele::priskirti_svori(int indeksas, int svoris){
+void Standart_lentele::priskirti_svori(int indeksas, int svoris){ // Funckija priskira nurodyto indekso sindromui ji atitinkancio vektoriaus svori
 	assert( indeksas < klasiu_kiekis );
 	vektoriu_svoriai[indeksas] = svoris;
 }
 
-void Standart_lentele::spausdinti(){
+void Standart_lentele::spausdinti(){ // Funkcija isspausdina i konsole standartine lentele
 	cout << "sumazinta standartine lentele:\n";
+	cout << "sindromai:   svoriai:\n";
 	for (int j = 0; j < klasiu_kiekis; j++){
 		Kunas::print_vector(sindromai[j]);
-		cout << "    "<<vektoriu_svoriai[j];
+		cout << "       "<<vektoriu_svoriai[j];
 		cout << endl;
 	}
 }
 
-bool Standart_lentele::lyginti_sindromus_iki_indekso(int indeksas){
+bool Standart_lentele::lyginti_sindromus_iki_indekso(int indeksas){ // Funkcija palygina visus sindromus iki nurodyto indekso, grazina true jei yra lygiu sindromu
 	assert( indeksas < klasiu_kiekis );
 	bool yra_lygiu = false;
 	for (int x = 0; x < indeksas; x++){
@@ -48,7 +49,7 @@ bool Standart_lentele::lyginti_sindromus_iki_indekso(int indeksas){
 	return yra_lygiu;
 }
 
-int Standart_lentele::rasti_svori_pagal_sindroma(Vektorius sindromas){
+int Standart_lentele::rasti_svori_pagal_sindroma(Vektorius sindromas){ // Funkcija grazina nurodyto sindromo atitinkama svori lenteleje
 	int svoris;
 	for (int i = 0; i < klasiu_kiekis; i++){
 		if ( Kunas::lyginti(sindromai[i], sindromas ) )
@@ -58,9 +59,9 @@ int Standart_lentele::rasti_svori_pagal_sindroma(Vektorius sindromas){
 }
 
 
-Matrica kontroline_matrica(Matrica G){
-	G.i_rref();
-	//cout << "rref forma\n";
+Matrica kontroline_matrica(Matrica G){ // Funkcija suranda kontroline matrica pagal duota generuojancia matrica
+	G.i_rref();						   // Parametrai: generuojanti matrica G
+	//cout << "rref forma\n";		   // Rezultatas: kontroline matrica
 	//G.print();
 	vector<vector<int> > perstatymas = G.i_vienetine();
 	cout << "G. matricos standartine forma: \n";
@@ -106,8 +107,6 @@ Standart_lentele skaiciuoti_sindromus(Matrica H, int klasiu_sk){ // Funkcija pag
 		vector<string> galimi_vektoriai;	
 		get_strings_with_weight(galimi_vektoriai, "", skait_kiek, svoris, skait_kiek); // I vektoriu "galimi_vektoriai" sugeneruojame
 		int kiekis_galimu = galimi_vektoriai.size();								   // visus galimus variantus reikiamo ilgio ir svorio vektoriu.
-		cout << "galimi vektoriai\n";
-		print_vector(galimi_vektoriai);
 		
 		for (int z = 0; (z < kiekis_galimu) && (i < klasiu_sk); z++){
 			jau_uzimtas = false;//tariame, kad is nauju galimu vektoriu visi yra laisvi
@@ -120,8 +119,6 @@ Standart_lentele skaiciuoti_sindromus(Matrica H, int klasiu_sk){ // Funkcija pag
 			jau_uzimtas = standart_lentele.lyginti_sindromus_iki_indekso(i); // suzinome, ar paskutinis irasytas vektorius neduoda jau uzimto sindromo
 
 			if (!jau_uzimtas) { // jei galimo vektoriaus gaminamas sindromas dar neuzimtas, pazymime vektoriaus svori
-				cout << "i standartine lentele pridedamas vektorius: ";
-				Kunas::print_vector(galimas_v);
 				standart_lentele.priskirti_svori(i, Kunas::rasti_svori(galimas_v) );
 				i++;
 			}
@@ -134,7 +131,7 @@ Standart_lentele skaiciuoti_sindromus(Matrica H, int klasiu_sk){ // Funkcija pag
 	return standart_lentele;
 } 
 
-Elementas skaliarine_sandauga(Vektorius v1, Vektorius v2){
+Elementas skaliarine_sandauga(Vektorius v1, Vektorius v2){ // Funkcija realizuoja dvieju vektoriu skaliarine sandauga
 	assert(v1.size() == v2.size());
 	Elementas sum = '0';
 	for (int i = 0; i < v1.size(); i++){
@@ -148,10 +145,10 @@ Vektorius taisyti_klaidas(Vektorius r, Matrica H, Standart_lentele standart_lent
 	int svoris;																		  // , standartine lentele.
 	bool baigta = false;															  // Rezultatas: vektorius, su istaisytomis klaidomis.
 	vector <vector<Elementas> > e = generuoti_vienetinius_vektorius(H.sizeX());
-	cout  << "vienetiniai vektoriai\n";
-	for (int vekt = 0; vekt < e.size(); ++vekt) {
-		Kunas::print_vector(e[vekt]);
-	}
+//	cout  << "vienetiniai vektoriai\n";
+//	for (int vekt = 0; vekt < e.size(); ++vekt) {
+//		Kunas::print_vector(e[vekt]);
+//	}
 
 	while (!baigta){
 		vector <Elementas> sandaugos_rez;
@@ -218,22 +215,22 @@ void dekoduoti(Vektorius vektorius, Matrica G){	// Funkcija paima vektoriu su is
 			//cout << "sukeiciamos eiles " << stulp << " ir " << nenuline_eil << "\n";
 //			swap rows i and max
 			G.sukeisti_eilutes(stulp, nenuline_eil);
-			cout << "vektorius pries simboliu "<< stulp <<" ir "<<nenuline_eil <<" sukeitima\n";
-			Kunas::print_vector(vektorius);
+//			cout << "vektorius pries simboliu "<< stulp <<" ir "<<nenuline_eil <<" sukeitima\n";
+//			Kunas::print_vector(vektorius);
 			Kunas::sukeisti_simbolius(vektorius, stulp, nenuline_eil);
-			cout << "vektorius po simboliu "<< stulp <<" ir "<<nenuline_eil <<" sukeitimo\n";
-			Kunas::print_vector(vektorius);
-			cout << endl;
+//			cout << "vektorius po simboliu "<< stulp <<" ir "<<nenuline_eil <<" sukeitimo\n";
+//			Kunas::print_vector(vektorius);
+//			cout << endl;
 			for (int stulp_next = stulp+1; stulp_next < eil_sk; ++stulp_next) {
 //				Add A[u,i] * row i to row u, do this for BOTH, matrix A and RHS vector b
 				Elementas daugiklis = G(stulp_next, stulp);
 				G.dauginti_eilute_ir_prideti(stulp, daugiklis,stulp_next);
-				cout << "vektorius pries simbolio "<< stulp <<" dauginima is "<< daugiklis <<" ir pridejima prie simbolio "<<stulp_next <<"\n";
-							Kunas::print_vector(vektorius);
+//				cout << "vektorius pries simbolio "<< stulp <<" dauginima is "<< daugiklis <<" ir pridejima prie simbolio "<<stulp_next <<"\n";
+//							Kunas::print_vector(vektorius);
 				Kunas::dauginti_simboli_ir_prideti(vektorius, stulp, daugiklis, stulp_next);
-				cout << "vektorius po simbolio "<< stulp <<" dauginima is "<< daugiklis <<" ir pridejima prie simbolio "<<stulp_next <<"\n";
-											Kunas::print_vector(vektorius);
-											cout << endl;
+//				cout << "vektorius po simbolio "<< stulp <<" dauginima is "<< daugiklis <<" ir pridejima prie simbolio "<<stulp_next <<"\n";
+//											Kunas::print_vector(vektorius);
+//											cout << endl;
 			}
 		}
 		else {
@@ -262,8 +259,9 @@ void dekoduoti(Vektorius vektorius, Matrica G){	// Funkcija paima vektoriu su is
 	}
 	cout << "matrica po gauso algoritmo\n";
 	G.print();
-	cout << "\nvektorius :\n";
+	cout << "\nvektorius po gauso:\n";
 	Kunas::print_vector(vektorius);
+	cout << endl;
 
 	LygciuSistema lygciu_sist(G, vektorius);
 	lygciu_sist.spresti();
@@ -292,11 +290,11 @@ void LygciuSistema::spresti(){	// Funkcija, kuri sprendzia tiesiniu lygciu siste
 		else
 			baigta = true;
 	}
-	cout << "kintamuju reiksmes\n";
+	cout << "Dekoduotas vektorius:\n";
 	Kunas::print_vector(this->kintamuju_reiksmes);
 }
 void LygciuSistema::lygtis_eiluteje(int eil){ 							// Funkcija kuri rekursyviai sprendzia tam tikra eilute lygciu sistemoje.
-	cout << "iskviesta f-ja lygtis_eiluteje su param. " << eil << endl;	// Parametrai: eilute, kuri bus sprendziama.
+//	cout << "iskviesta f-ja lygtis_eiluteje su param. " << eil << endl;	// Parametrai: eilute, kuri bus sprendziama.
 	vector<int> eilutes_kintamieji;										// Rezultatas: pildomas LygciuSistema objektas, jame suzymimos isprestos eilutes
 																		// ir rasti kintamieji bei ju reiksmes.
 	for (int stulp = 0; stulp < this->matrica.sizeX(); ++stulp) { // suzymime eilutes kintamuosius i vektoriu
@@ -304,12 +302,12 @@ void LygciuSistema::lygtis_eiluteje(int eil){ 							// Funkcija kuri rekursyvia
 			eilutes_kintamieji.push_back(stulp);
 		}
 	}
-	cout << "eilutes_kintamieji: ";
-	print_vector(eilutes_kintamieji);
+//	cout << "eilutes_kintamieji: ";
+//	print_vector(eilutes_kintamieji);
 	if (eilutes_kintamieji.size() == 1) { // jei eiluteje yra tik 1 kintamasis
-		cout << "eiluteje " << eil << " yra tik 1 kint" << endl;
+//		cout << "eiluteje " << eil << " yra tik 1 kint" << endl;
 		int kintamasis = eilutes_kintamieji.back();
-		cout << "tas 1 kintamasis yra: " << kintamasis << endl;
+//		cout << "tas 1 kintamasis yra: " << kintamasis << endl;
 		this->surasti_kintamieji[kintamasis] = 1; // pasizymime, jog suradome kintamojo reiksme
 		this->isprestos_eilutes[eil] = 1;		// pasizymime, kad isprendeme sia eilute
 		this->kintamuju_reiksmes[kintamasis] = this->vektorius[eil];
@@ -326,7 +324,7 @@ void LygciuSistema::lygtis_eiluteje(int eil){ 							// Funkcija kuri rekursyvia
 			}
 			if (!rastas_vienetas) { // reiskia kintamasis yra eilutes pirmasis, vadinasi reikia skaiciuoti jo reiksme
 				//kintamasis = vektorius[eilute] - sum(eilutes_kintamieji)
-				cout << "eilutes " << eil << " kintamajam" <<eilutes_kintamieji[kint] << " iskviesta sprendimo dalis\n";
+//				cout << "eilutes " << eil << " kintamajam" <<eilutes_kintamieji[kint] << " iskviesta sprendimo dalis\n";
 				Vektorius eilutes_kintamuju_reiksmes;
 				for (int kintam = 0; kintam < eilutes_kintamieji.size(); ++kintam) {
 					if (eilutes_kintamieji[kintam] == '1') {
@@ -335,7 +333,7 @@ void LygciuSistema::lygtis_eiluteje(int eil){ 							// Funkcija kuri rekursyvia
 				}
 				this->kintamuju_reiksmes[eilutes_kintamieji[kint]] = Kunas::el_atimtis(vektorius[eil],
 																	sum_vector_elements(eilutes_kintamuju_reiksmes));
-				cout << "jam priskirta reiksme: " << kintamuju_reiksmes[kint] << endl;
+//				cout << "jam priskirta reiksme: " << kintamuju_reiksmes[kint] << endl;
 				this->surasti_kintamieji[eilutes_kintamieji[kint]] = 1; // pasizymime, jog suradome kintamojo reiksme
 				this->isprestos_eilutes[eil] = 1;// pasizymime, kad isprendeme sia eilute
 			}

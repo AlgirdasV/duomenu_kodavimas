@@ -20,7 +20,7 @@ Vektorius vektoriaus_ivedimas(int);
 bool isNum(string);
 int StringToNumber(string&);
 
-int main( int argc, const char* argv[] )
+int main( int argc, const char* argv[] )//TODO generate matrix in standart form, add second user scenario
 {
 	Matrica m;
 	string input1;
