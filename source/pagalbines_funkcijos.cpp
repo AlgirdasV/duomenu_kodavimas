@@ -59,14 +59,15 @@ void reset_vector(vector <Elementas>& vektorius, int dydis){ // Funkcija, pagal 
 															//  vektoriu pradiniais elementas.
 	vektorius.clear();
 	for (int i=0; i<dydis; i++) {
-		vektorius.push_back('2');//reiksme, dvinariame baigtiniame kune neturinti prasmes
+		vektorius.push_back('2');	// reiksme 2, dvinariame baigtiniame kune neturinti prasmes.
+								  	// ja pazymime, kad kintamojo reiksme dar neatrasta.
 	}
 }
 
 Elementas sum_vector_elements(Vektorius vektorius){ // Funkcija, susumuojanti visus vektoriaus el.
 	Elementas sum = '0';
 	for (int el = 0; el < vektorius.size(); ++el) {
-		Kunas::el_sudetis(vektorius[el], sum);
+		sum = Kunas::el_sudetis(vektorius[el], sum);
 	}
 	return sum;
 }
@@ -80,4 +81,3 @@ void pasalinti_simboli(Vektorius& vektorius, int simbolis){
 	}
 	vektorius.resize(vektorius.size() - 1);
 }
-

@@ -12,7 +12,6 @@ class Matrica {
 		std::vector< std::vector<Elementas> > reiksme;
 		Matrica(int, int);
 		Matrica();
-		~Matrica();
 		int sizeX();
 		int sizeY();
 		bool from_file(const std::string&);

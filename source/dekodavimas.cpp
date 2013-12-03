@@ -195,7 +195,7 @@ vector <vector<Elementas> > generuoti_vienetinius_vektorius(int ilgis){ // Funkc
 	return vienetiniai_vektoriai;
 }
 
-void dekoduoti(Vektorius vektorius, Matrica G){	// Funkcija paima vektoriu su istaisytomis klaidomis ir ji dekoduoja.
+Vektorius dekoduoti(Vektorius vektorius, Matrica G){	// Funkcija paima vektoriu su istaisytomis klaidomis ir ji dekoduoja.
 	G.transponuoti();							// Parametrai: vektorius su istaisytomis klaidomis, generuojanti matrica G.
 	int stulp_sk = G.sizeX();					// Rezultatas: grazinamas dekoduotas vektorius.
 	int eil_sk = G.sizeY();
@@ -247,7 +247,8 @@ void dekoduoti(Vektorius vektorius, Matrica G){	// Funkcija paima vektoriu su is
 		}
 		if (eil_nuline){
 			if (vektorius[eil] == '1') {
-				cout << "neisprendziama lygciu sistema\n";
+				cout << "Neisprendziama lygciu sistema\n";
+
 			}
 			else {
 				G.pasalinti_eilute(eil);
@@ -261,26 +262,29 @@ void dekoduoti(Vektorius vektorius, Matrica G){	// Funkcija paima vektoriu su is
 	G.print();
 	cout << "\nvektorius po gauso:\n";
 	Kunas::print_vector(vektorius);
-	cout << endl;
+	cout << endl << endl;
 
 	LygciuSistema lygciu_sist(G, vektorius);
-	lygciu_sist.spresti();
+	Vektorius galutinis = lygciu_sist.spresti();
+	return galutinis;
 }
 
-void LygciuSistema::spresti(){	// Funkcija, kuri sprendzia tiesiniu lygciu sistema.
+Vektorius LygciuSistema::spresti(){		// Funkcija, kuri sprendzia tiesiniu lygciu sistema.
 											// Parametrai: matrica ir vektorius,
 											//     kurie sudaro lygciu sistema.
-											// Rezultatas: lygciu sistemos sprendinys kaip vektorius.
+											// Rezultatas: lygciu sistemos sprendinys kaip sveiku sk. vektorius
 
 	lygtis_eiluteje(0);
 	bool yra_neispresta;
 	int neispresta;
 	bool baigta = false;
-	while (!baigta){
+	int iteracija = 0;
+	while (!baigta && iteracija<10){
+		iteracija++;
 		yra_neispresta = false;
 		for (int eil = 0; eil < this->isprestos_eilutes.size() && !yra_neispresta; ++eil) {
 			if (this->isprestos_eilutes[eil] == 0){
-				cout << "yra neispresta eilute "<< eil << endl;
+//				cout << "yra neispresta eilute "<< eil << endl;
 				yra_neispresta = true;
 				neispresta = eil;
 			}
@@ -291,7 +295,8 @@ void LygciuSistema::spresti(){	// Funkcija, kuri sprendzia tiesiniu lygciu siste
 			baigta = true;
 	}
 	cout << "Dekoduotas vektorius:\n";
-	Kunas::print_vector(this->kintamuju_reiksmes);
+			Kunas::print_vector(this->kintamuju_reiksmes);
+	return this->kintamuju_reiksmes;
 }
 void LygciuSistema::lygtis_eiluteje(int eil){ 							// Funkcija kuri rekursyviai sprendzia tam tikra eilute lygciu sistemoje.
 //	cout << "iskviesta f-ja lygtis_eiluteje su param. " << eil << endl;	// Parametrai: eilute, kuri bus sprendziama.
@@ -311,6 +316,7 @@ void LygciuSistema::lygtis_eiluteje(int eil){ 							// Funkcija kuri rekursyvia
 		this->surasti_kintamieji[kintamasis] = 1; // pasizymime, jog suradome kintamojo reiksme
 		this->isprestos_eilutes[eil] = 1;		// pasizymime, kad isprendeme sia eilute
 		this->kintamuju_reiksmes[kintamasis] = this->vektorius[eil];
+//		cout << "jo reiksme: " << this->vektorius[eil] << "\n\n";
 	}
 	else {
 		for (int kint = eilutes_kintamieji.size()-1; kint >=0; --kint) { // kiekvienam eilutes kintamajam (pradedame nuo desines)
@@ -326,14 +332,19 @@ void LygciuSistema::lygtis_eiluteje(int eil){ 							// Funkcija kuri rekursyvia
 				//kintamasis = vektorius[eilute] - sum(eilutes_kintamieji)
 //				cout << "eilutes " << eil << " kintamajam" <<eilutes_kintamieji[kint] << " iskviesta sprendimo dalis\n";
 				Vektorius eilutes_kintamuju_reiksmes;
-				for (int kintam = 0; kintam < eilutes_kintamieji.size(); ++kintam) {
-					if (eilutes_kintamieji[kintam] == '1') {
-						eilutes_kintamuju_reiksmes.push_back(kintamuju_reiksmes[kintam]);
+//				cout <<"testing kintamuju_reiksmes: ";
+//				print_vector(kintamuju_reiksmes);
+//				cout << "renkame eilutes kintamuosius:\n";
+				for (int kintam = 0; kintam < eilutes_kintamieji.size(); ++kintam) {//fix
+//					cout <<"kintamasis "<< eilutes_kintamieji[kintam]<<" ";
+					int kint_index = eilutes_kintamieji[kintam]; // pasizymime eilutes kintamojo indeksa
+					if (kintamuju_reiksmes[kint_index] == '1') { // jei reiksme butu 2, tai dar neapibrezta reiksme; jei 0 - sumai itakos netures
+						eilutes_kintamuju_reiksmes.push_back(kintamuju_reiksmes[kint_index]);
 					}
 				}
+
 				this->kintamuju_reiksmes[eilutes_kintamieji[kint]] = Kunas::el_atimtis(vektorius[eil],
 																	sum_vector_elements(eilutes_kintamuju_reiksmes));
-//				cout << "jam priskirta reiksme: " << kintamuju_reiksmes[kint] << endl;
 				this->surasti_kintamieji[eilutes_kintamieji[kint]] = 1; // pasizymime, jog suradome kintamojo reiksme
 				this->isprestos_eilutes[eil] = 1;// pasizymime, kad isprendeme sia eilute
 			}

@@ -30,7 +30,7 @@ class LygciuSistema { // Klase, realizuojanti lygciu sistema, sudaryta is matric
 	std::vector<int> surasti_kintamieji;
 	LygciuSistema(Matrica, Vektorius);
 	void lygtis_eiluteje(int);
-	void spresti();
+	Vektorius spresti();
 };
 
 Matrica kontroline_matrica(Matrica);
@@ -38,7 +38,7 @@ std::vector <std::vector<Elementas> > generuoti_vienetinius_vektorius(int );
 Standart_lentele skaiciuoti_sindromus(Matrica, int);
 Elementas skaliarine_sandauga(Vektorius, Vektorius);
 Vektorius taisyti_klaidas(Vektorius , Matrica , Standart_lentele);
-void dekoduoti(Vektorius, Matrica);
+Vektorius dekoduoti(Vektorius, Matrica);
 
 
 #endif
