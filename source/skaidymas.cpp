@@ -34,11 +34,13 @@
 		print_vector(file_contents_vector);
 		//TODO dalijimas i tam tikro dydzio vektorius
 		cout << "po print\n";
+		int viso_bitu = file_contents_vector.size();
 		vector <Vektorius> vektoriai;
+		vektoriai.resize((viso_bitu/ilgis) +1);
 		int vektoriaus_indeksas = 0;
-		for (int i = 0; i < file_contents_vector.size(); i = i+ilgis) {
+		for (int i = 0; i < viso_bitu; i = i+ilgis) {
 
-			for (int el = 0; el < ilgis; ++el) {
+			for (int el = 0; el < ilgis && (el+i)<viso_bitu; ++el) {
 				vektoriai[vektoriaus_indeksas].push_back(file_contents_vector[i+el]);
 				//bitas '0' arba '1'
 			}
