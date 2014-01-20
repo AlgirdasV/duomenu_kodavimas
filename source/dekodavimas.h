@@ -11,13 +11,14 @@ class Standart_lentele{ // klase realizuoja sumazinta standartine lentele ir vei
 
 	public:
 		Standart_lentele(int );
+		Standart_lentele();
 		void isvalyti_sindroma(int );
 		void prijungti_prie_sindromo(int, Elementas);
 		void priskirti_svori(int, int);
 		void spausdinti();
 		bool lyginti_sindromus_iki_indekso(int);
 		int rasti_svori_pagal_sindroma(Vektorius);
-		void print();
+
 };
 
 class LygciuSistema { // Klase, realizuojanti lygciu sistema, sudaryta is matricos ir vektoriaus
@@ -39,6 +40,7 @@ Standart_lentele skaiciuoti_sindromus(Matrica, int);
 Elementas skaliarine_sandauga(Vektorius, Vektorius);
 Vektorius taisyti_klaidas(Vektorius , Matrica , Standart_lentele);
 Vektorius dekoduoti(Vektorius, Matrica);
+void gauso_eliminacija(Vektorius& , Matrica& );
 
 
 #endif

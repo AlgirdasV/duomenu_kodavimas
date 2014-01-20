@@ -1,2 +1,3 @@
 Cia yra pirma eilute pavyzdinio teksto.
-Cia yra antra eilute pavyzdinio teksto.
+Cia yra antra eilute pavyzdinio teksto...
+Kodavimo programos pavyzdinio failo trecioji eilute.

@@ -13,20 +13,24 @@ void reset_vector(std::vector <Elementas>& , int );
 Elementas sum_vector_elements(Vektorius );
 template <typename T>
 void print_vector( std::vector <T>);
+template <typename T>
+void print_vector( std::vector <T>, char);
 void pasalinti_simboli(Vektorius& , int );
 template <typename T>
 void print_2d_vector(std::vector <std::vector <T> > vector);
 
 template <typename T>
 void print_vector( std::vector <T> v){
-	std::cout << "f-ja print vector\n";
-	std::cout << "vector size: " <<v.size() << "\n";
 		for (int i=0; i < v.size(); i++){
-			std::cout << v[i] << " ";
-			if (i%8 == 0)
-				std::cout << "\n";
+			std::cout << v[i];
 		}
-		std::cout << "test po ciklo\n";
+}
+
+template <typename T>
+void print_vector( std::vector <T> v, char delim){
+		for (int i=0; i < v.size(); i++){
+			std::cout << v[i] << delim;
+		}
 }
 
 template <typename T>

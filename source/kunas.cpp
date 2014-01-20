@@ -9,15 +9,9 @@ using namespace std;
 
 	
 
-	bool Kunas::lyginti(Vektorius a, Vektorius b){
+	bool Kunas::lyginti(Vektorius a, Vektorius b){ // funkcija lygina du vektorius, grazina true jei jie lygus
 		bool lygu=true;
 		assert(a.size()==b.size());
-		/*
-		cout<<"lyginami vektoriai: ";
-		print_vector(a);
-		cout << " ir ";
-		print_vector(b);
-		cout <<endl;*/
 		for (int i = 0; i < a.size(); i++) {
 			if (a[i]!=b[i]){
 				lygu=false;
@@ -26,12 +20,11 @@ using namespace std;
 		return lygu;
 	}
 
-	void Kunas::spausdinti_klaidas(Vektorius a, Vektorius b){
+	void Kunas::spausdinti_klaidas(Vektorius a, Vektorius b){ // funkcija lygina du vektorius ir spausdina skirtumus tarp ju kaip klaidas
 		assert(a.size()==b.size());
 		vector <int> klaidos;
 		for (int i = 0; i < a.size(); i++) {
 			if (a[i]!=b[i]){
-				//cout << "pozicijoje " << i << "klaida.";
 				klaidos.push_back(i);
 			}
 		}
@@ -45,7 +38,7 @@ using namespace std;
 		}
 	}
 
-	Vektorius Kunas::daugyba(Vektorius binary1, Vektorius binary2) {
+	Vektorius Kunas::daugyba(Vektorius binary1, Vektorius binary2) { // funkcija realizuoja dvieju vektoriu daugyba
 		Vektorius multiply;
 		char digit;
 		int factor=1;
@@ -73,7 +66,7 @@ using namespace std;
 	    return multiply;
 	}
 
-	int Kunas::rasti_svori(Vektorius v){
+	int Kunas::rasti_svori(Vektorius v){ // funkcija randa vektoriaus svori
 		int svoris = 0;
 		for (int i = 0; i < v.size(); i++ ) {
 			if (v[i] == '1')
@@ -82,8 +75,7 @@ using namespace std;
 		return svoris;
 	}
  
-	Vektorius Kunas::sudetis(Vektorius binary1, Vektorius binary2){
-		
+	Vektorius Kunas::sudetis(Vektorius binary1, Vektorius binary2){ // funkcija sudeda du vektorius
 		Vektorius binarySum;
 
 	    int i=0,remainder = 0,sum[20];
@@ -96,12 +88,13 @@ using namespace std;
 	    	else 
 	    		last_digit1='0';
 	    	
-	    	if ( !binary2.empty() ) {
+	    	if ( !binary2.empty() )
 	    		last_digit2=binary2.back();
-	    	}
 	    	else 
 	    		last_digit2='0';
-	    	
+
+
+	    	assert((last_digit1=='0'||last_digit1=='1' )&&(last_digit2=='0'||last_digit2=='1' ));
 	    	Elementas tmp = el_sudetis( last_digit1, last_digit2 );
 	    	int tmp2 = remainder + (tmp-'0');
 
@@ -125,7 +118,7 @@ using namespace std;
 	    
 	}
 
-	Elementas Kunas::el_atimtis(Elementas a, Elementas b){//is elemento a atimamas elementas b
+	Elementas Kunas::el_atimtis(Elementas a, Elementas b){ //funkcija is elemento a atimama elementa b
 		assert( (a=='0' || a=='1') && (b=='0' || b=='1') );
 		if (a=='0' && b=='0'){
 			return '0';
@@ -139,7 +132,7 @@ using namespace std;
 		else return '0';
 	}
 
-	bool Kunas::lygus_nuliui(Vektorius v){
+	bool Kunas::lygus_nuliui(Vektorius v){ // funkcija grazina reiksme true, jei vektorius yra nulinis
 		bool lygus = true;
 		for (int i = 0; i < v.size(); i++){
 			if (v[i]=='1') lygus = false;
@@ -147,7 +140,7 @@ using namespace std;
 		return lygus;
 	}
 
-	Elementas Kunas::el_sudetis(Elementas a,Elementas b){
+	Elementas Kunas::el_sudetis(Elementas a,Elementas b){ // funkcija sudeda du kuno elementus
 		assert( (a=='0' || a=='1') && (b=='0' || b=='1') );
 		if (a=='0' && b=='0'){
 			return '0';
@@ -161,7 +154,7 @@ using namespace std;
 		else return '0';
 	}
 
-	Elementas Kunas::el_daugyba(Elementas a,Elementas b){
+	Elementas Kunas::el_daugyba(Elementas a,Elementas b){ // funkcija sudaugina du kuno elementus
 		assert( (a=='0' || a=='1') && (b=='0' || b=='1') );
 		if (a=='0' && b=='0'){
 			return '0';
@@ -176,28 +169,21 @@ using namespace std;
 	}
 
 	
-	void Kunas::print_vector( Vektorius v){
+	void Kunas::print_vector( Vektorius v){ // funkcija spausdina vektoriu
 		for (int i=0; i < v.size(); i++){
 			cout << v[i] << " ";
 		}
 
 	}
 
-//	void Kunas::reset_vector( Vektorius& v, int size){
-//		v.clear();
-//		for (int i=0; i<size; i++) {
-//			v.push_back('0');
-//		}
-//	}
-
-	void Kunas::resize_2d_vector (vector< vector<Vektorius> >& v, int X, int Y){
+	void Kunas::resize_2d_vector (vector< vector<Vektorius> >& v, int X, int Y){ // funkcija keicia dvimacio vektoriaus dydi
 		v.resize(Y);
 		for (int i = 0; i < Y; i++){
 			v[i].resize(X);
 		}
 	}
 
-	Vektorius Kunas::string_to_vector (std::string str){
+	Vektorius Kunas::string_to_vector (std::string str){ // funkcija iš eilutes pagamina vektoriu ir ji grazina
 	Vektorius v;
 	v.resize( str.length() );
 		for (int i = 0; i < str.length(); i++){
@@ -206,8 +192,7 @@ using namespace std;
 		return v;
 	}
 
-	void Kunas::sukeisti_simbolius(Vektorius& v, int simb1, int simb2) {
-		//cout << "sukeiciami simboliai " << simb1 << " ir " << simb2 << endl;
+	void Kunas::sukeisti_simbolius(Vektorius& v, int simb1, int simb2) { // funkcija sukeicia parametru perduoto vektoriaus simbolius
 			assert(simb1 >= 0 && simb1 < v.size() );
 			assert(simb2 >= 0 && simb2 < v.size() );
 			char pagalb;
@@ -216,11 +201,22 @@ using namespace std;
 			v[simb2] = pagalb;
 	}
 
-	void Kunas::dauginti_simboli_ir_prideti(Vektorius& v, int simb1, Elementas el, int simb2) {
-				//cout << "simbolis " << simb1 << " dauginamas is " << el << " ir pridedamas prie " << simb2 << endl;
+	void Kunas::dauginti_simboli_ir_prideti(Vektorius& v, int simb1, Elementas el, int simb2) { // funkcija sudaugina vektoriaus simboli
+																								// simb1 is elemento el ir prideda rezultata
+																								//	prie vektoriaus simbolio simb2
 				assert(simb1 >= 0 && simb1 < v.size() );
 				assert(simb2 >= 0 && simb2 < v.size() );
 				Elementas rez = Kunas::el_daugyba(v[simb1], el);
 
 				v[simb2] = Kunas::el_sudetis(v[simb2], rez);
 		}
+
+	void Kunas::nulinti_vektoriu( Vektorius& vektorius){ // funkcija padaro vektoriu nuliniu,
+														 // tai yra pagal vektoriaus dydi perraso jo elementus i nulius
+		int dydis = vektorius.size();
+		vektorius.clear();
+			for (int i=0; i<dydis; i++) {
+				vektorius.push_back('0');	// reiksme 2, dvinariame baigtiniame kune neturinti prasmes.
+										  	// ja pazymime, kad kintamojo reiksme dar neatrasta.
+			}
+	}

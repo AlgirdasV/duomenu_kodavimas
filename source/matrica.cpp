@@ -31,6 +31,19 @@ void Matrica::keisti_dydi(const int sizeX,const int sizeY){	//Funkcija keicia ma
 	}
 }
 
+void Matrica::keisti_dydi(const int sizeY){		//Funkcija keicia matricos eiluciu skaiciu.
+												//Parametrais ima eiluciu skaicu
+	this->y = sizeY;							//Rezultatas: keicia matricos, kuriai funkcija iskviesta, eiluciu sk.
+	this->reiksme.resize(sizeY);
+}
+
+void Matrica::keisti_eilutes_dydi(int eil, const int sizeX){	//Funkcija keicia matricos eilutes ilgi.
+																//Parametrais ima eiluci ilgi
+																//Rezultatas: keicia matricos, kuriai funkcija iskviesta, eilutes ilgi
+	this->x = sizeX;
+	this->reiksme[eil].resize(sizeX);
+}
+
 char& Matrica::operator()(const int nRow, const int nCol)	//Funkcija leidzia prieti prie matricos reiksmes
 {															//Parametrais nurodomi stulpelio ir eilutes nr.
     assert(nCol >= 0 && nCol < this->sizeX() );				//rezultatas: grazina matricos reiksme
@@ -116,7 +129,6 @@ void Matrica::dauginti_eilute_ir_atimti(int eil1, Elementas daugiklis, int eil2)
 																				  // Parametrai: eil1 - eilute, kuri bus dauginama;
 																				  //     daugiklis; ir eil2- eilute is kurios bus atimama.
 																				  // Rezultatas: veiksmai atliekami su matrica, kuriai iskviesta f-ja.
-	//cout<< "eilute ["<< eil1<<"] dauginama is "<<daugiklis<<" ir atimama is eilutes ["<<eil2<<"]\n";
 	assert(eil1 >= 0 && eil1 < this->y );
 	assert(eil2 >= 0 && eil2 < this->y );
 	Vektorius pagalb;
@@ -174,7 +186,6 @@ void Matrica::sukeisti_stulpelius(int stulp1, int stulp2){	// Funkcija sukeicia 
 
 void Matrica::i_rref() { // Funkcija, suvedanti matrica i Reduced Row Echelon forma
 						 // Rezultatas: matrica, kuriai iskviesta f-ja yra RRE formos
-	 
 	int lead = 0; // kintamasis zymes stulpeli su kuriuo bus dirbama
  
   	for (int row = 0; row < this->y; row++){ // einame per eilutes
@@ -195,12 +206,12 @@ void Matrica::i_rref() { // Funkcija, suvedanti matrica i Reduced Row Echelon fo
 	    for (int j = 0; j < this->y; j++)
 	    {
 	    	if (j != row)
-	    		this->dauginti_eilute_ir_atimti( row, this->reiksme[j][lead], j ); // pasalinamos nenulines reiksmes po lyderiu
+	    		this->dauginti_eilute_ir_prideti( row, this->reiksme[j][lead], j ); // pasalinamos nenulines reiksmes po lyderiu
 	    }
   	}
 }
 
-vector<vector<int> > Matrica::i_vienetine() { // Funkcija suvedanti matrica is RREF vienetine forma turincia matrica.
+vector<vector<int> > Matrica::i_vienetine() { // Funkcija suvedanti matrica is RREF i vienetine forma turincia matrica.
 	int a, b;
 	vector<vector<int> > perstatas;
 	int stulp_sk = this->x;
@@ -246,21 +257,6 @@ vector<vector<int> > Matrica::i_vienetine() { // Funkcija suvedanti matrica is R
 		}
 	}
 	return perstatas;
-}
-
-void Matrica::generuoti_matrica(int eil_sk, int stulp_sk){ // Funkcija pagal pateiktus parametrus sukuria generuojancia matrica.
-	this->keisti_dydi(stulp_sk, eil_sk);				   // Parametrai: matricos eiluciu sk. ir stulpeliu sk.
-	srand (time(NULL));									   // Rezultatas: matrica, kuriai iskviesta si funkcija, yra uzpildoma atsitiktiniais kuno elementais.
-	int naujas_elementas;
-	for (int eil = 0; eil < eil_sk; eil++){
-		for (int stulp = 0; stulp < stulp_sk; stulp++){
-			naujas_elementas = rand() % 2; //atsitiktinis sveikas skaicius nuo 0 iki 1
-			if (naujas_elementas == 1)
-				this->reiksme[eil][stulp]='1';
-			else 
-				this->reiksme[eil][stulp]='0';
-		}
-	}
 }
 
 void Matrica::transponuoti(){ // Funkcija transponuoja matrica, kuriai funkcija buvo iskviesta

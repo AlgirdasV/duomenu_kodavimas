@@ -10,7 +10,7 @@
 #include <cassert>
 
 
-void remove_carriage_return(std::string& line)
+void remove_carriage_return(std::string& line) // funkcija pasalina '\r' simboli
 {
     if (*line.rbegin() == '\r')
     {
@@ -18,32 +18,30 @@ void remove_carriage_return(std::string& line)
     }
 }
 
-void get_strings_with_weight(vector<string>& answer, string s, int digitsLeft, int weight, int digits) {//grazina eilutes 
+void get_strings_with_weight(vector<string>& answer, string s,
+								int digitsLeft, int weight, int digits) { // rekursyvi funkcija, kuri generuoja vektorius su tam tikru svoriu ir ilgiu
+																		  // parametrai: vektorius, i kuri bus generuojama
+																		  // algoritmui reikalinga (is pradziu tuscia) eilute
+																		  // reikiamu vektoriu svoris ir ilgis.
+
 	size_t vien_kiek = std::count(s.begin(), s.end(), '1');
 
-   	if( digitsLeft == 0 ) {// the length of string is n
-   		//cout <<"vien. kiekis : "<<vien_kiek<<endl;
-   		if (vien_kiek == weight) {
+   	if( digitsLeft == 0 ) { // sukureme eilute
+   		if (vien_kiek == weight) { // jei vienetu kiekis atitinka reikiama svori
     		answer.push_back( s );
     	}
 	}
    	else
    	{	
-
    		size_t vien_kiekis = std::count(s.begin(), s.end(), '1');
-   		if (vien_kiekis < weight) {
+   		if (vien_kiekis < weight) { // jei eilute neturi svorio kiekio vienetu
    			get_strings_with_weight(answer, s + "1", digitsLeft - 1, weight, digits);
    		}
-    	//if string does not contain weight amount of '1's then
     	
     	size_t nul_kiekis = std::count(s.begin(), s.end(), '1');	
-		if (nul_kiekis < digits-1) {
+		if (nul_kiekis < digits-1) { // jei eilute neturi digits-1 nuliu
    			get_strings_with_weight(answer, s + "0", digitsLeft - 1, weight, digits);	
    		}
-    	//end	
-    	//if string does not contain (digits-1) amount of '0's then	
-    		
-    	//end
    	}
 }
 
@@ -74,7 +72,7 @@ Elementas sum_vector_elements(Vektorius vektorius){ // Funkcija, susumuojanti vi
 
 
 
-void pasalinti_simboli(Vektorius& vektorius, int simbolis){
+void pasalinti_simboli(Vektorius& vektorius, int simbolis){ // funkcija pasalina is vektoriaus simboli
 	assert(simbolis >= 0 && simbolis < vektorius.size() );
 	for (int simb = simbolis; simb < vektorius.size() - 1; ++simb) {//perkopijuojami simoliai sekantys po to, kuris buvo istrintas
 		vektorius[simb] = vektorius[simb+1];
