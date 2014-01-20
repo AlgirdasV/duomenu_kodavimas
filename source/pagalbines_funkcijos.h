@@ -21,25 +21,25 @@ void print_2d_vector(std::vector <std::vector <T> > vector);
 
 template <typename T>
 void print_vector( std::vector <T> v){
-		for (int i=0; i < v.size(); i++){
-			std::cout << v[i];
-		}
+        for (int i=0; i < v.size(); i++){
+            std::cout << v[i];
+        }
 }
 
 template <typename T>
 void print_vector( std::vector <T> v, char delim){
-		for (int i=0; i < v.size(); i++){
-			std::cout << v[i] << delim;
-		}
+        for (int i=0; i < v.size(); i++){
+            std::cout << v[i] << delim;
+        }
 }
 
 template <typename T>
 void print_2d_vector(std::vector <std::vector <T> > vector){
-	for (int vekt = 0; vekt < vector.size(); ++vekt) {
-		Kunas::print_vector(vector[vekt]);
-		std::cout << std::endl;
-		std::cout << std::endl;
-	}
+    for (int vekt = 0; vekt < vector.size(); ++vekt) {
+        Kunas::print_vector(vector[vekt]);
+        std::cout << std::endl;
+        std::cout << std::endl;
+    }
 }
 
 #endif

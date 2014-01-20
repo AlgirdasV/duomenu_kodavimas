@@ -2,34 +2,34 @@
 #define MATRICA_H
 #include "kunas.h"
 #include <vector>
-#include <string>  
+#include <string>
 
 class Matrica {
-	int x, y; 
-	
-	
-	public:
-		std::vector< std::vector<Elementas> > reiksme;
-		Matrica(int, int);
-		Matrica();
-		int sizeX();
-		int sizeY();
-		bool from_file(const std::string&);
-		void print();
-		void keisti_dydi(const int,const int);
-		void keisti_dydi(const int );
-		void keisti_eilutes_dydi(int , const int );
-		char& operator()(const int , const int );
-		std::vector<char>& operator()(const int );
-		void dauginti_eilute(int, Elementas);
-		void dauginti_eilute_ir_atimti(int, Elementas, int);
-		void dauginti_eilute_ir_prideti(int, Elementas, int);
-		void sukeisti_eilutes(int, int);
-		void sukeisti_stulpelius(int, int);
-		void i_rref();
-		std::vector<std::vector<int> > i_vienetine();
-		void transponuoti();
-		void pasalinti_eilute(int);
+    int x, y;
+
+
+    public:
+        std::vector< std::vector<Elementas> > reiksme;
+        Matrica(int, int);
+        Matrica();
+        int sizeX();
+        int sizeY();
+        bool from_file(const std::string&);
+        void print();
+        void keisti_dydi(const int,const int);
+        void keisti_dydi(const int );
+        void keisti_eilutes_dydi(int , const int );
+        char& operator()(const int , const int );
+        std::vector<char>& operator()(const int );
+        void dauginti_eilute(int, Elementas);
+        void dauginti_eilute_ir_atimti(int, Elementas, int);
+        void dauginti_eilute_ir_prideti(int, Elementas, int);
+        void sukeisti_eilutes(int, int);
+        void sukeisti_stulpelius(int, int);
+        void i_rref();
+        std::vector<std::vector<int> > i_vienetine();
+        void transponuoti();
+        void pasalinti_eilute(int);
 
 };
 #endif
